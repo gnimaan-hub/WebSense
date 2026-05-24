@@ -1,0 +1,144 @@
+/* ═══════════════════════════════════════════════════════════════
+   PATCH CONTRASTE & FINITIONS v8.1
+   À importer APRÈS globals.css.
+   • Améliore contraste textes secondaires (mono ID, taglines)
+   • Restaure le shimmer + le tag pill orange (au lieu de vert)
+   • Variantes "section-h2 em" plus lisibles
+   • Fix nav-link underline animé (manquant dans la migration)
+   • Status pulse ring qui survit aux clipping de la nav
+═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Contraste boosté ── */
+  --ink-3: #5E6864;    /* +1.4 pt sur bg clair · WCAG AA pour 14px+ */
+  --ink-4: #8A918C;    /* +1 pt sur mono 10/11px */
+
+  /* Or plus lisible sur fond clair pour les labels secondaires */
+  --or-dark: #A66B00;
+}
+
+/* ── Hero tag pill : restaurer le ORANGE (v8 original) ── */
+.hero-tag-pill {
+  background: var(--or) !important;
+  color: #fff !important;
+}
+/* Le dot reste vert (= disponible), c'est cohérent avec le pulse */
+.hero-tag-dot {
+  background: var(--green-mid) !important;
+}
+
+/* ── Shimmer animation : assurer la disponibilité ── */
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* ── Section H2 em : gradient + animation ── */
+.section-h2 em {
+  background: linear-gradient(120deg, var(--or), #C97800 60%, var(--or)) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  animation: shimmer 8s linear infinite;
+}
+
+/* ── Nav-link : underline animé au hover (manquait) ── */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 12px; right: 12px;
+  height: 2px;
+  background: var(--or);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .3s var(--ease);
+}
+.nav-link:hover { background: var(--or-pale2); color: var(--ink) !important; }
+.nav-link:hover::after { transform: scaleX(1); }
+
+/* ── Status pulse ring : éviter qu'il soit clippé par la nav ── */
+.nav-status { overflow: visible; }
+.nav-status-dot { overflow: visible; }
+
+/* ── Process step : la ligne dorée doit passer DERRIÈRE les pastilles ── */
+.process-step { background: transparent; }
+.ps-num { z-index: 2; position: relative; }
+
+/* ── FAQ : faciliter la lecture ── */
+.faq-q-text { color: var(--ink); }
+.faq-a { color: var(--ink-2); }
+
+/* ── Service card : description plus lisible ── */
+.sc-desc, .ps-text, .pkg-tagline, .blog-excerpt, .project-desc {
+  color: var(--ink-2);
+}
+
+/* ── Approach orbit : pulsation des satellites internes ── */
+@keyframes orbit-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.15); opacity: 0.85; }
+}
+.approach-orbit svg > circle[cx="170"][cy="110"],
+.approach-orbit svg > circle[cx="222"][cy="200"],
+.approach-orbit svg > circle[cx="118"][cy="200"] {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: orbit-pulse 3s ease-in-out infinite;
+}
+.approach-orbit svg > circle[cx="222"][cy="200"] { animation-delay: -1s; }
+.approach-orbit svg > circle[cx="118"][cy="200"] { animation-delay: -2s; }
+
+/* ── Tech radar : pin "label" : meilleur contraste ── */
+.tech-radar-pin .lbl {
+  background: rgba(255,255,255,0.85);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+/* ── Tilt 3D : transition pour ne pas saccader ── */
+.service-card, .project-card, .pkg-card {
+  transition: transform .25s var(--ease),
+              box-shadow .3s var(--ease),
+              border-color .3s var(--ease) !important;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+/* ── Hero visual : ne JAMAIS clipper le composite ── */
+.hero-visual { overflow: visible; }
+
+/* ── Pkg featured : meilleure mise en avant ── */
+.pkg-card.featured { transform: translateY(-6px); }
+.pkg-card.featured:hover { transform: translateY(-10px); }
+
+/* ── Réduction du contraste pour les utilisateurs préférant ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Scrollbar discrète mais visible ── */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: rgba(27,38,34,0.18);
+  border-radius: 5px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--or); }
+
+/* ── Mobile : désactiver l'animation float des cartes hero ── */
+@media (max-width: 1024px) {
+  .hv-terminal, .hv-editor, .hv-metrics, .hv-net { animation: none; }
+}
