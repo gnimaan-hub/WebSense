@@ -79,9 +79,7 @@ export default function Footer() {
                 marginTop: 14,
               }}
             >
-{`  ╭─── websense.dj ───╮
-  │  v8.0 · 2026      │
-  ╰───────────────────╯`}
+
             </pre>
           </div>
 
