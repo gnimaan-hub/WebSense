@@ -66,7 +66,7 @@ export default function Hero() {
               <p
                 style={{
                   fontSize: '16.5px',
-                  color: 'var(--ink-2)',
+                  color: 'var(--ink)',
                   lineHeight: 1.7,
                   maxWidth: 520,
                   marginBottom: 28,

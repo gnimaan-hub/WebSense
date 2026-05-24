@@ -5,18 +5,17 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
+  { href: '/',          label: 'Accueil'  },
   { href: '/services',  label: 'Services' },
-  { href: '/approche',  label: 'Approche' },
-  { href: '/projets',   label: 'Projets' },
-  { href: '/stack',     label: 'Stack' },
-  { href: '/tarifs',    label: 'Tarifs' },
-  { href: '/faq',       label: 'FAQ' },
+  { href: '/projets',   label: 'Projets'  },
+  { href: '/tarifs',    label: 'Tarifs'   },
   { href: '/blog',      label: 'Insights' },
+  { href: '/faq',       label: 'FAQ'      },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
+  const [menuOpen,  setMenuOpen]  = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -32,165 +31,142 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href);
+
   return (
     <>
       <nav
         id="nav"
-        className={`sticky top-0 z-[100] border-b transition-all duration-300 ${
-          scrolled ? 'scrolled' : ''
-        }`}
         style={{
-          background: scrolled ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.78)',
-          borderColor: scrolled ? 'rgba(232,160,32,0.2)' : 'var(--border)',
-          boxShadow: scrolled ? 'var(--shadow-sm)' : 'none',
+          position: 'sticky', top: 0, zIndex: 100,
+          background: scrolled ? 'rgba(232,247,242,0.96)' : 'rgb(255, 255, 255)',
+          borderBottom: `1px solid ${scrolled ? 'rgba(29,158,117,0.18)' : 'rgba(27,38,34,0.08)'}`,
           backdropFilter: 'blur(20px) saturate(160%)',
-          WebkitBackdropFilter: 'blur(20px) saturate(160%)',
+          boxShadow: scrolled ? '0 2px 16px rgba(27,38,34,0.07)' : 'none',
+          transition: 'all .3s var(--ease)',
         }}
       >
-        <div
-          className="container-custom flex items-center gap-6"
-          style={{ height: 68 }}
-        >
+        <div className="container-custom" style={{ display: 'flex', alignItems: 'center', gap: '8px', height: '68px' }}>
+
           {/* Logo */}
-          <Link href="/" className="nav-logo flex items-center gap-[10px]">
-            <div
-              className="nav-logo-mark w-9 h-9 rounded-[9px] flex items-center justify-center flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%)' }}
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+            <div style={{
+              width: '36px', height: '36px', borderRadius: '9px',
+              background: 'linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              flexShrink: 0, transition: 'transform .3s var(--ease)',
+            }}
+              onMouseEnter={e => (e.currentTarget.style.transform = 'rotate(-8deg) scale(1.08)')}
+              onMouseLeave={e => (e.currentTarget.style.transform = '')}
             >
-              <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" />
+              <svg viewBox="0 0 24 24" style={{ width: 18, height: 18 }} fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
               </svg>
             </div>
-            <span
-              className="nav-logo-text font-extrabold text-[17px] tracking-[-0.03em]"
-              style={{ color: 'var(--ink)' }}
-            >
+            <span style={{ fontWeight: 800, fontSize: '17px', letterSpacing: '-0.03em', color: 'var(--ink)', fontFamily: 'var(--font)' }}>
               Web<span style={{ color: 'var(--green-mid)' }}>Sense</span>
-            </span>
-            <span
-              className="nav-logo-id hidden sm:inline"
-              style={{
-                fontFamily: 'var(--mono)',
-                fontSize: 10,
-                color: 'var(--ink-4)',
-                letterSpacing: '0.05em',
-                padding: '2px 6px',
-                border: '1px solid var(--border)',
-                borderRadius: 4,
-              }}
-            >
-              v8.0
             </span>
           </Link>
 
-          {/* Liens desktop */}
-          <ul className="nav-links hidden lg:flex gap-0.5 list-none ml-auto">
+          {/* Nav desktop */}
+          <ul style={{ display: 'flex', gap: '2px', listStyle: 'none', marginLeft: 'auto', alignItems: 'center' }}
+              className="hidden lg:flex">
             {NAV_LINKS.map(({ href, label }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className="nav-link block px-3 py-2 rounded-lg text-[13.5px] font-medium transition-all duration-200 relative"
+                  className="nav-link"
                   style={{
-                    color: pathname === href ? 'var(--ink)' : 'var(--ink-2)',
+                    display: 'block', padding: '8px 14px', borderRadius: '8px',
+                    fontSize: '13.5px', fontWeight: isActive(href) ? 700 : 500,
+                    color: isActive(href) ? 'var(--green)' : 'var(--ink)',
+                    background: isActive(href) ? 'rgba(29,158,117,0.08)' : 'transparent',
+                    fontFamily: 'var(--font)', position: 'relative',
+                    transition: 'all .2s',
                   }}
                 >
                   {label}
-                  {pathname === href && (
-                    <span
-                      className="absolute bottom-1 left-3 right-3 h-0.5 rounded-sm"
-                      style={{ background: 'var(--or)' }}
-                    />
+                  {isActive(href) && (
+                    <span style={{
+                      position: 'absolute', bottom: '4px', left: '14px', right: '14px',
+                      height: '2px', background: 'var(--or)', borderRadius: '2px',
+                    }} />
                   )}
                 </Link>
               </li>
             ))}
           </ul>
 
-          {/* Status pill — disponibilité */}
-          <div
-            className="nav-status hidden md:flex"
-            aria-label="Disponibilité"
-            title="2 créneaux disponibles ce trimestre"
-          >
+          {/* Status */}
+          <div className="nav-status hidden xl:flex" style={{ marginLeft: '12px' }}>
             <span className="nav-status-dot" />
-            <span>2 créneaux · Q3·26</span>
+            <span>Disponible</span>
           </div>
 
           {/* CTA */}
           <Link
             href="/contact"
-            className="nav-cta hidden lg:inline-flex items-center gap-1.5 relative overflow-hidden"
-            style={{
-              padding: '9px 18px',
-              borderRadius: 8,
-              background: 'var(--ink)',
-              color: '#fff',
-              fontSize: '13.5px',
-              fontWeight: 700,
-              transition: 'transform .2s var(--ease), box-shadow .2s',
-              whiteSpace: 'nowrap',
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget;
-              el.style.background = 'linear-gradient(135deg, var(--or), var(--or-dark))';
-              el.style.transform = 'translateY(-1px)';
-              el.style.boxShadow = 'var(--shadow-or)';
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget;
-              el.style.background = 'var(--ink)';
-              el.style.transform = '';
-              el.style.boxShadow = '';
-            }}
+            className="btn-primary hidden lg:inline-flex"
+            style={{ marginLeft: '10px', padding: '9px 20px', fontSize: '13.5px' }}
           >
-            <span>Démarrer</span>
-            <span>→</span>
+            <span>Démarrer</span><span>→</span>
           </Link>
 
           {/* Burger */}
           <button
-            className={`nav-burger flex lg:hidden flex-col justify-center gap-1 w-9 h-9 ml-auto ${menuOpen ? 'open' : ''}`}
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label={menuOpen ? 'Fermer' : 'Menu'}
             aria-expanded={menuOpen}
+            className="lg:hidden"
+            style={{
+              marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer',
+              padding: '6px', display: 'flex', flexDirection: 'column', gap: '5px',
+            }}
           >
-            <span className="block w-[22px] h-0.5 rounded-sm transition-transform duration-300" style={{ background: 'var(--ink)', transform: menuOpen ? 'translateY(6px) rotate(45deg)' : '' }} />
-            <span className="block w-[22px] h-0.5 rounded-sm transition-opacity duration-300" style={{ background: 'var(--ink)', opacity: menuOpen ? 0 : 1 }} />
-            <span className="block w-[22px] h-0.5 rounded-sm transition-transform duration-300" style={{ background: 'var(--ink)', transform: menuOpen ? 'translateY(-6px) rotate(-45deg)' : '' }} />
+            {[0, 1, 2].map(i => (
+              <span key={i} style={{
+                display: 'block', width: '22px', height: '2px',
+                background: 'var(--ink)', borderRadius: '2px',
+                transform: menuOpen ? (i === 0 ? 'translateY(7px) rotate(45deg)' : i === 2 ? 'translateY(-7px) rotate(-45deg)' : 'none') : 'none',
+                opacity: menuOpen && i === 1 ? 0 : 1,
+                transition: 'transform .3s, opacity .3s',
+              }} />
+            ))}
           </button>
         </div>
       </nav>
 
-      {/* Menu mobile */}
-      <nav
-        className={`nav-mobile fixed top-[68px] left-0 right-0 bottom-0 bg-white z-[99] overflow-y-auto flex-col gap-1 p-6 ${
-          menuOpen ? 'flex' : 'hidden'
-        }`}
-        aria-hidden={!menuOpen}
-      >
-        {NAV_LINKS.map(({ href, label }) => (
-          <Link
-            key={href}
-            href={href}
-            className="block px-4 py-3.5 rounded-xl text-base font-medium border-b transition-all duration-200"
-            style={{
-              color: pathname === href ? 'var(--ink)' : 'var(--ink-2)',
-              background: pathname === href ? 'var(--or-pale)' : 'transparent',
-              borderColor: 'var(--border)',
-            }}
-          >
-            {label}
+      {/* Mobile menu */}
+      {menuOpen && (
+        <nav style={{
+          position: 'fixed', top: '68px', left: 0, right: 0, bottom: 0,
+          background: 'var(--bg)', zIndex: 99, overflowY: 'auto',
+          padding: '24px clamp(20px,4vw,56px)',
+          display: 'flex', flexDirection: 'column', gap: '4px',
+        }}>
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link key={href} href={href} style={{
+              display: 'block', padding: '14px 16px', borderRadius: '10px',
+              fontSize: '17px', fontWeight: 500,
+              color: isActive(href) ? 'var(--green)' : 'var(--ink)',
+              background: isActive(href) ? 'rgba(29,158,117,0.08)' : 'transparent',
+              borderBottom: '1px solid var(--border)',
+              fontFamily: 'var(--font)',
+            }}>
+              {label}
+            </Link>
+          ))}
+          <Link href="/contact" style={{
+            display: 'block', padding: '14px 16px', borderRadius: '10px',
+            fontSize: '17px', fontWeight: 700, color: 'var(--or)',
+            fontFamily: 'var(--font)',
+          }}>
+            Démarrer un projet →
           </Link>
-        ))}
-        <Link
-          href="/contact"
-          className="block px-4 py-3.5 rounded-xl text-base font-bold border-b transition-all duration-200"
-          style={{ color: 'var(--or-dark)', borderColor: 'var(--border)' }}
-        >
-          Démarrer un projet →
-        </Link>
-      </nav>
+        </nav>
+      )}
     </>
   );
 }
