@@ -5,7 +5,7 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 
 const services = [
   {
-    id: 'WS·01', badge: 'Core', badgeColor: 'core',
+    id: 'WS·01', badge: 'Code', badgeColor: 'core',
     slug: 'developpement-web',
     title: 'Développement Web Sur Mesure',
     desc: 'Sites vitrine, e-commerce, applications web. Code propre, testé, documenté ligne par ligne.',
@@ -14,8 +14,8 @@ const services = [
     icon: <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>,
   },
   {
-    id: 'WS·02', badge: 'Core', badgeColor: 'core',
-    slug: null, // pas encore de page dédiée
+    id: 'WS·02', badge: 'Code', badgeColor: 'core',
+    slug: 'ux-design',
     title: 'UX Design & Ergonomie',
     desc: 'Audit UX, wireframes, prototypes interactifs, tests utilisateurs. Interfaces intuitives au premier regard.',
     tags: ['Figma', 'Wireframes', 'User Research'],
@@ -23,7 +23,7 @@ const services = [
     icon: <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>,
   },
   {
-    id: 'WS·03', badge: 'Advisory', badgeColor: 'advisory',
+    id: 'WS·03', badge: 'Consulting', badgeColor: 'advisory',
     slug: null,
     title: 'Conseil en Stratégie Web',
     desc: 'Audit existant, roadmap digitale, choix technologiques, scoping. On pense avant de construire.',
@@ -32,7 +32,7 @@ const services = [
     icon: <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>,
   },
   {
-    id: 'WS·04', badge: 'Advisory', badgeColor: 'advisory',
+    id: 'WS·04', badge: 'Consulting', badgeColor: 'advisory',
     slug: null,
     title: 'Autonomie & Formation',
     desc: 'Formation de vos équipes, documentation complète, accompagnement à la prise en main.',
