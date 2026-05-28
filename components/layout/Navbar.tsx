@@ -11,7 +11,7 @@ interface SubItem {
   desc:    string;
   badge?:  string;
   badgeColor?: 'green' | 'or' | 'teal';
-  soon?:   boolean;   // pas encore de page dédiée
+  soon?:   boolean;
 }
 interface NavEntry {
   href:      string;
@@ -71,7 +71,6 @@ const NAV: NavEntry[] = [
   { href: '/faq',      label: 'FAQ'      },
 ];
 
-/* ─── couleurs badges dropdown ─── */
 const BADGE_COLORS = {
   green: { bg: 'rgba(10,92,73,0.08)',   color: 'var(--green)' },
   or:    { bg: 'var(--or-pale)',        color: 'var(--or-dark)' },
@@ -91,7 +90,6 @@ function NavLink({
   const hasDrop = !!entry.sub?.length;
   const ref = useRef<HTMLDivElement>(null);
 
-  /* Fermer le dropdown si clic en dehors */
   useEffect(() => {
     if (!dropOpen) return;
     const handler = (e: MouseEvent) => {
@@ -109,7 +107,6 @@ function NavLink({
     height: '2px',
     background: isActive ? 'var(--or)' : 'var(--green-mid)',
     borderRadius: '2px',
-    /* animation clipPath gauche→droite */
     clipPath: hovered || isActive
       ? 'inset(0 0% 0 0)'
       : 'inset(0 100% 0 0)',
@@ -123,7 +120,6 @@ function NavLink({
       onMouseEnter={() => { setHovered(true);  if (hasDrop) setDropOpen(true);  }}
       onMouseLeave={() => { setHovered(false); if (hasDrop) setDropOpen(false); }}
     >
-      {/* Lien principal */}
       <Link
         href={entry.href}
         style={{
@@ -139,7 +135,6 @@ function NavLink({
         }}
       >
         {entry.label}
-        {/* Chevron si dropdown */}
         {hasDrop && (
           <svg
             width="12" height="12" viewBox="0 0 24 24" fill="none"
@@ -154,11 +149,9 @@ function NavLink({
             <polyline points="6 9 12 15 18 9"/>
           </svg>
         )}
-        {/* Soulignage animé */}
         <span style={underlineStyle} />
       </Link>
 
-      {/* ── DROPDOWN ── */}
       {hasDrop && (
         <div
           style={{
@@ -166,7 +159,7 @@ function NavLink({
             top: 'calc(100% + 8px)',
             left: '50%',
             width: '380px',
-            background: '#fff',
+            background: 'var(--bg-white)',
             border: '1.5px solid var(--border)',
             borderRadius: '16px',
             boxShadow: '0 16px 48px rgba(27,38,34,0.12), 0 4px 12px rgba(27,38,34,0.06)',
@@ -180,7 +173,6 @@ function NavLink({
             transition: 'opacity .22s cubic-bezier(0.16,1,0.3,1), transform .22s cubic-bezier(0.16,1,0.3,1)',
           } as React.CSSProperties}
         >
-          {/* Flèche pointant vers le haut */}
           <div style={{
             position: 'absolute',
             top: '-7px', left: '50%', transform: 'translateX(-50%)',
@@ -189,14 +181,13 @@ function NavLink({
           }}>
             <div style={{
               width: '10px', height: '10px',
-              background: '#fff',
+              background: 'var(--bg-white)',
               border: '1.5px solid var(--border)',
               transform: 'rotate(45deg)',
               margin: '3px auto 0',
             }} />
           </div>
 
-          {/* En-tête dropdown */}
           <div style={{
             padding: '10px 12px 8px',
             borderBottom: '1px solid var(--border)',
@@ -218,7 +209,6 @@ function NavLink({
             </Link>
           </div>
 
-          {/* Items */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
             {entry.sub!.map((item, i) => (
               <DropItem key={i} item={item} />
@@ -230,7 +220,6 @@ function NavLink({
   );
 }
 
-/* ─── Item de dropdown ─── */
 function DropItem({ item }: { item: SubItem }) {
   const [hovered, setHovered] = useState(false);
   const bc = item.badgeColor ? BADGE_COLORS[item.badgeColor] : BADGE_COLORS.green;
@@ -250,7 +239,6 @@ function DropItem({ item }: { item: SubItem }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Icône colorée */}
       <div style={{
         width: '36px', height: '36px', borderRadius: '9px',
         background: hovered ? 'var(--or-pale)' : 'rgba(27,38,34,0.05)',
@@ -308,7 +296,6 @@ function DropItem({ item }: { item: SubItem }) {
         </span>
       </div>
 
-      {/* Flèche hover */}
       <svg
         viewBox="0 0 24 24" width="14" height="14" fill="none"
         stroke="var(--or)" strokeWidth="2.5"
@@ -326,12 +313,39 @@ function DropItem({ item }: { item: SubItem }) {
   );
 }
 
-/* ─── Navbar principale ─── */
+/* ─── Navbar principale avec switch thème ─── */
 export default function Navbar() {
-  const [scrolled,  setScrolled]  = useState(false);
-  const [menuOpen,  setMenuOpen]  = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const pathname = usePathname();
+
+  // Initialisation du thème depuis localStorage / préférence système
+  useEffect(() => {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored === 'dark' || (stored === null && prefersDark) ? 'dark' : 'light';
+    setTheme(initial);
+    if (initial === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  // Sauvegarde du thème et application de la classe .dark
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -349,15 +363,23 @@ export default function Navbar() {
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
+  // Couleurs de fond de la navbar adaptées au thème et au scroll
+  const getNavBackground = () => {
+    if (theme === 'dark') {
+      return scrolled ? 'rgba(15,20,18,0.96)' : 'rgba(15,20,18,0.95)';
+    } else {
+      return scrolled ? 'rgba(232,247,242,0.96)' : 'rgba(255,255,255,0.95)';
+    }
+  };
+
   return (
     <>
-      {/* ══════════════════ NAV ══════════════════ */}
       <nav
         id="nav"
         style={{
           position: 'sticky', top: 0, zIndex: 100,
-          background: scrolled ? 'rgba(232,247,242,0.96)' : 'rgba(255,255,255,0.95)',
-          borderBottom: `1px solid ${scrolled ? 'rgba(29,158,117,0.18)' : 'rgba(27,38,34,0.08)'}`,
+          background: getNavBackground(),
+          borderBottom: `1px solid var(--border)`,
           backdropFilter: 'blur(20px) saturate(160%)',
           boxShadow: scrolled ? '0 2px 16px rgba(27,38,34,0.07)' : 'none',
           transition: 'all .3s cubic-bezier(0.16,1,0.3,1)',
@@ -367,18 +389,17 @@ export default function Navbar() {
           className="container-custom"
           style={{ display: 'flex', alignItems: 'center', height: '68px', gap: '4px' }}
         >
-          {/* Logo */}
           <Link
             href="/"
             style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0, textDecoration: 'none', marginRight: '8px' }}
           >
             <LogoMark />
-            <span style={{ fontWeight: 800, fontSize: '17px', letterSpacing: '-0.03em', color: 'var(--ink)', fontFamily: 'var(--font)' }}>
+            <span style={{ fontWeight: 800, fontSize: '24px', letterSpacing: '-0.03em', color: 'var(--ink)', fontFamily: 'var(--font)' }}>
               Web<span style={{ color: 'var(--green-mid)' }}>Sense</span>
             </span>
           </Link>
 
-          {/* ── Liens desktop (cachés sur mobile) ── */}
+          {/* Liens desktop */}
           <div
             className="hidden lg:flex"
             style={{ alignItems: 'center', gap: '0', marginLeft: 'auto', flex: 1, justifyContent: 'center' }}
@@ -388,8 +409,53 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* ── Droite desktop ── */}
+          {/* Droite desktop */}
           <div className="hidden lg:flex" style={{ alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
+            {/* Switch thème */}
+            <button
+              onClick={toggleTheme}
+              aria-label="Changer de thème"
+              style={{
+                background: 'rgba(29,158,117,0.08)',
+                border: '1px solid rgba(29,158,117,0.2)',
+                borderRadius: '40px',
+                padding: '6px 12px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontFamily: 'var(--mono)',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: 'var(--green)',
+                transition: 'all 0.2s',
+              }}
+            >
+              {theme === 'light' ? (
+                <>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                  </svg>
+                  <span>Clair</span>
+                </>
+              ) : (
+                <>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                  </svg>
+                  <span>Sombre</span>
+                </>
+              )}
+            </button>
+
             {/* Pastille disponible */}
             <div style={{
               display: 'flex', alignItems: 'center', gap: '7px',
@@ -409,7 +475,6 @@ export default function Navbar() {
               Disponible
             </div>
 
-            {/* CTA */}
             <Link
               href="/contact"
               className="btn-primary"
@@ -419,7 +484,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* ── Burger mobile (visible seulement sur mobile) ── */}
+          {/* Burger mobile */}
           <button
             onClick={() => setMenuOpen(o => !o)}
             aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -454,16 +519,15 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ══════════════════ MENU MOBILE ══════════════════ */}
+      {/* Menu mobile */}
       <div
         style={{
           position: 'fixed',
           top: '68px', left: 0, right: 0, bottom: 0,
-          background: '#fff',
+          background: 'var(--bg-white)',
           zIndex: 99,
           overflowY: 'auto',
           padding: '16px clamp(20px,4vw,40px) 40px',
-          /* Glissement vertical */
           transform: menuOpen ? 'translateY(0)' : 'translateY(-100%)',
           opacity: menuOpen ? 1 : 0,
           transition: 'transform .35s cubic-bezier(0.16,1,0.3,1), opacity .25s',
@@ -473,7 +537,6 @@ export default function Navbar() {
       >
         {NAV.map(entry => (
           <div key={entry.href}>
-            {/* Entrée principale */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <Link
                 href={entry.href}
@@ -488,7 +551,6 @@ export default function Navbar() {
               >
                 {entry.label}
               </Link>
-              {/* Bouton expand si sous-entrées */}
               {entry.sub && (
                 <button
                   onClick={() => setMobileExpanded(e => e === entry.href ? null : entry.href)}
@@ -513,7 +575,6 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Sous-items dépliés */}
             {entry.sub && mobileExpanded === entry.href && (
               <div style={{
                 paddingLeft: '16px',
@@ -550,12 +611,53 @@ export default function Navbar() {
               </div>
             )}
 
-            {/* Séparateur */}
             <div style={{ height: '1px', background: 'var(--border)', margin: '0 0 4px' }} />
           </div>
         ))}
 
-        {/* CTA mobile */}
+        {/* Switch thème dans le menu mobile */}
+        <button
+          onClick={toggleTheme}
+          style={{
+            display: 'flex', alignItems: 'center', gap: '12px',
+            background: 'rgba(29,158,117,0.08)',
+            border: '1px solid rgba(29,158,117,0.2)',
+            borderRadius: '40px',
+            padding: '10px 16px',
+            width: '100%', justifyContent: 'center',
+            marginTop: '16px',
+            fontFamily: 'var(--mono)',
+            fontSize: '14px',
+            fontWeight: 600,
+            color: 'var(--green)',
+            cursor: 'pointer',
+          }}
+        >
+          {theme === 'light' ? (
+            <>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+              </svg>
+              Thème clair
+            </>
+          ) : (
+            <>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+              Thème sombre
+            </>
+          )}
+        </button>
+
         <Link
           href="/contact"
           className="btn-primary"

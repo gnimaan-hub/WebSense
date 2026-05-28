@@ -15,10 +15,10 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { id: '// ws-stat-01', trend: 'stable',   value: 4,   suffix: '',      label: 'Expertises core·advisory',     bars: [40, 55, 48, 70, 62, 80, 75, 90] },
-  { id: '// ws-stat-02', trend: '+12pts',   value: 100, suffix: '%',     label: 'Sur mesure, sans compromis',   bars: [30, 45, 60, 55, 75, 70, 90, 100] },
-  { id: '// ws-stat-03', trend: 'objectif', value: 24,  suffix: 'h',     label: 'Délai de réponse maximum',     bars: [85, 70, 78, 60, 50, 55, 42, 35] },
-  { id: '// ws-stat-04', trend: '+3pts',    value: 96,  suffix: '/100',  label: 'Score Lighthouse moyen',       bars: [60, 65, 75, 80, 85, 88, 94, 96] },
+  { id: 'Expertises', trend: '',   value: 4,   suffix: '',      label: 'Code - Conseil - Support - Marketing',     bars: [40, 55, 48, 70, 62, 80, 75, 90] },
+  { id: 'Production', trend: '',   value: 100, suffix: '%',     label: 'Sur mesure, sans compromis',   bars: [30, 45, 60, 55, 75, 70, 90, 100] },
+  { id: 'Rapide', trend: '', value: 24,  suffix: 'h',     label: 'Délai de réponse maximum',     bars: [85, 70, 78, 60, 50, 55, 42, 35] },
+  { id: 'Ergonomique', trend: '',    value: 96,  suffix: '/100',  label: 'Score Lighthouse moyen',       bars: [60, 65, 75, 80, 85, 88, 94, 96] },
 ];
 
 /**

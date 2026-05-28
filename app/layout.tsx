@@ -8,6 +8,8 @@ import ParticlesBackground from '@/components/layout/ParticlesBackground';
 import ProgressBar from '@/components/layout/ProgressBar';
 import RevealObserver from '@/components/layout/RevealObserver';
 import TiltCards from '@/components/layout/TiltCards';
+import ThemeInitializer from '@/components/layout/ThemeInitializer';
+import AudioManager from '@/components/AudioManager';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -32,10 +34,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${plusJakarta.variable} ${jetbrainsMono.variable}`}>
-      <body className="antialiased">
+    <html 
+      lang="fr" 
+      // On force la classe 'dark' par défaut (sera éventuellement modifiée par ThemeInitializer)
+      className={`${plusJakarta.variable} ${jetbrainsMono.variable} dark`}
+      suppressHydrationWarning // Évite l'erreur si le client modifie la classe
+    >
+      <body className="antialiased" suppressHydrationWarning>
+        <ThemeInitializer />
 
-        {/* Couches de fond animées */}
         <div className="bg-grid" aria-hidden="true" />
         <div className="bg-mesh" aria-hidden="true">
           <div className="blob b1" />
@@ -43,30 +50,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="blob b3" />
         </div>
 
-        {/* Particules canvas */}
         <ParticlesBackground />
-
-        {/* Curseur custom */}
         <Cursor />
-
-        {/* Barre progression scroll */}
         <ProgressBar />
-
-        {/* Navigation */}
         <Navbar />
-
-        {/* Contenu */}
         <main>{children}</main>
-
-        {/* Footer */}
         <Footer />
-
-        {/* Reveal observer — animations au scroll */}
         <RevealObserver />
-
-        {/* Effet tilt 3D sur cartes services / projets / packages */}
         <TiltCards />
-
+        <AudioManager />
       </body>
     </html>
   );

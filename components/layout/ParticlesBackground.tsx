@@ -3,14 +3,15 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * ParticlesBackground v2
- * Couleurs adaptées au fond vert pâle (#E8F7F2) :
- * - Points : vert foncé avec opacité modérée
- * - Connexions : vert-mid très transparent
- * - Légère influence souris
+ * ParticlesBackground v3 – Dark mode ready
+ * Couleurs adaptées dynamiquement selon le thème :
+ * - Light : vert foncé (#0A5C49) avec opacité modérée
+ * - Dark  : vert menthe/cyan (#4ECDC4) plus lumineux
+ * Connexions adaptées également.
  */
 export default function ParticlesBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const themeRef = useRef<'light' | 'dark'>('light');
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -21,11 +22,26 @@ export default function ParticlesBackground() {
     let W = 0, H = 0, animId: number;
     const mouse = { x: 0, y: 0 };
 
-    type Pt = { x:number; y:number; vx:number; vy:number; r:number; a:number };
+    type Pt = { x: number; y: number; vx: number; vy: number; r: number; a: number };
     let pts: Pt[] = [];
 
+    // Fonction pour obtenir les couleurs selon le thème
+    const getColors = () => {
+      if (themeRef.current === 'dark') {
+        return {
+          particle: (alpha: number) => `rgba(78, 205, 196, ${alpha * 0.9})`, // #4ECDC4
+          line: (alpha: number) => `rgba(78, 205, 196, ${alpha * 0.6})`,
+        };
+      } else {
+        return {
+          particle: (alpha: number) => `rgba(10, 92, 73, ${alpha})`, // #0A5C49
+          line: (alpha: number) => `rgba(29, 158, 117, ${alpha * 0.8})`,
+        };
+      }
+    };
+
     const resize = () => {
-      W = canvas.width  = window.innerWidth;
+      W = canvas.width = window.innerWidth;
       H = canvas.height = window.innerHeight;
       buildPts();
     };
@@ -35,51 +51,67 @@ export default function ParticlesBackground() {
       const n = Math.min(65, Math.floor((W * H) / 13000));
       for (let i = 0; i < n; i++) {
         pts.push({
-          x:  Math.random() * W,
-          y:  Math.random() * H,
+          x: Math.random() * W,
+          y: Math.random() * H,
           vx: (Math.random() - 0.5) * 0.3,
           vy: (Math.random() - 0.5) * 0.3,
-          r:  Math.random() * 1.8 + 0.6,
-          a:  Math.random() * 0.45 + 0.15,
+          r: Math.random() * 1.8 + 0.6,
+          a: Math.random() * 0.45 + 0.15,
         });
       }
     };
 
+    // Détection du thème actuel
+    const updateTheme = () => {
+      themeRef.current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    };
+    updateTheme();
+
+    // Observer les changements de classe .dark sur <html>
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
     resize();
     window.addEventListener('resize', resize, { passive: true });
 
-    const onMove = (e: MouseEvent) => { mouse.x = e.clientX; mouse.y = e.clientY; };
+    const onMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
     document.addEventListener('mousemove', onMove, { passive: true });
 
     const CONN = 120;
 
     const draw = () => {
       ctx.clearRect(0, 0, W, H);
+      const colors = getColors();
 
-      pts.forEach(p => {
+      for (const p of pts) {
         p.x += p.vx + (mouse.x - W / 2) * 0.00003;
         p.y += p.vy + (mouse.y - H / 2) * 0.00003;
-        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+        if (p.x < 0) p.x = W;
+        if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H;
+        if (p.y > H) p.y = 0;
 
-        /* Point — vert foncé visible sur fond vert pâle */
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(10,92,73,${p.a})`;
+        ctx.fillStyle = colors.particle(p.a);
         ctx.fill();
-      });
+      }
 
-      /* Connexions — vert-mid discret */
+      // Connexions
       for (let i = 0; i < pts.length; i++) {
         for (let j = i + 1; j < pts.length; j++) {
-          const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
-          const d  = Math.sqrt(dx * dx + dy * dy);
+          const dx = pts[i].x - pts[j].x;
+          const dy = pts[i].y - pts[j].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
           if (d < CONN) {
-            const alpha = (1 - d / CONN) * 0.18;
+            const alpha = (1 - d / CONN) * 0.25;
             ctx.beginPath();
             ctx.moveTo(pts[i].x, pts[i].y);
             ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(29,158,117,${alpha})`;
+            ctx.strokeStyle = colors.line(alpha);
             ctx.lineWidth = 0.7;
             ctx.stroke();
           }
@@ -95,6 +127,7 @@ export default function ParticlesBackground() {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', resize);
       document.removeEventListener('mousemove', onMove);
+      observer.disconnect();
     };
   }, []);
 
