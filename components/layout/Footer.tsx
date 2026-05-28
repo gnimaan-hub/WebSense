@@ -149,7 +149,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <span>© 2026 Cabinet WebSense · Djibouti · Tous droits réservés · Le sens du web</span>
+          <span>© 2026 Cabinet WebSense · Djibouti · Tous droits réservés</span>
           <div className="footer-bottom-links">
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>

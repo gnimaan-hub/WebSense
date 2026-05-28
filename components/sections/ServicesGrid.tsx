@@ -24,7 +24,7 @@ const services = [
   },
   {
     id: 'WS·03', badge: 'Consulting', badgeColor: 'advisory',
-    slug: null,
+    slug: 'conseil-strategie',
     title: 'Conseil en Stratégie Web',
     desc: 'Audit existant, roadmap digitale, choix technologiques, scoping. On pense avant de construire.',
     tags: ['Audit', 'Roadmap', 'Scoping'],
@@ -33,7 +33,7 @@ const services = [
   },
   {
     id: 'WS·04', badge: 'Consulting', badgeColor: 'advisory',
-    slug: null,
+    slug: 'formation',
     title: 'Autonomie & Formation',
     desc: 'Formation de vos équipes, documentation complète, accompagnement à la prise en main.',
     tags: ['Formation', 'Transfert', 'Docs'],
@@ -42,21 +42,21 @@ const services = [
   },
   {
     id: 'WS·05', badge: 'Support', badgeColor: 'support',
-    slug: null,
-    title: 'Maintenance & Évolution',
+    slug: 'maintenance',
+    title: 'Maintenance Web & Évolution',
     desc: 'Sauvegardes, mises à jour de sécurité, monitoring, évolutions fonctionnelles.',
     tags: ['Monitoring', 'Backups', 'Sécurité'],
     duration: 'Mensuel', extra: 'SLA 24h',
     icon: <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>,
   },
   {
-    id: 'WS·06', badge: 'Support', badgeColor: 'support',
-    slug: null,
-    title: 'SEO & Performance',
-    desc: 'Référencement naturel, optimisation Core Web Vitals, accessibilité. Vos pages remontent et se chargent vite.',
-    tags: ['SEO', 'Core Web Vitals', 'A11y'],
-    duration: '2 sem.', extra: 'Score ≥ 95',
-    icon: <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>,
+    id: 'WS·06', badge: 'Marketing', badgeColor: 'support',
+    slug: 'marketing-digital',
+    title: 'Marketing Digital & Croissance',
+    desc: 'Influence & UGC, production vidéo premium, community management et gestion des réseaux sociaux.',
+    tags: ['Influence', 'Vidéo', 'Social Media', 'UGC'],
+    duration: 'Mensuel', extra: 'Rapport KPIs',
+    icon: <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>,
   },
 ];
 

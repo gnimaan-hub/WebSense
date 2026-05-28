@@ -24,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Cabinet WebSense — Le sens du web à Djibouti',
+  title: 'Cabinet WebSense — Le sens du web',
   description:
     'Sites sur mesure, applications web, UX design, conseil stratégique — vous restez propriétaire. Cabinet WebSense, Djibouti.',
   keywords: ['développement web', 'agence web', 'Djibouti', 'site internet', 'UX design'],
