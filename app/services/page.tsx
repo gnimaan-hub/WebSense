@@ -13,7 +13,7 @@ export default function ServicesPage() {
         <div className="max-w-2xl">
           <div className="section-badge">// services</div>
           <h1 className="section-h2">Nous développons vos sites, vos outils et votre <em>visibilité</em></h1>
-          <p className="text-base text-ink2">Chaque projet est réalisé en interne, de la conception à la livraison. Cette maîtrise complète garantit cohérence, qualité et performance — sans sous-traitance.</p>
+          <p className="text-base text-ink4">Chaque projet est réalisé en interne, de la conception à la livraison. Cette maîtrise complète garantit cohérence, qualité et performance — sans sous-traitance.</p>
         </div>
       </section>
       <ServicesGrid full />

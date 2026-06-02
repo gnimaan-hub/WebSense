@@ -81,13 +81,13 @@ export default function AudioControl() {
                   disable();
                   setIsOpen(false);
                 }}
-                className="text-xs text-ink-3 hover:text-orange transition"
+                className="text-xs text-ink hover:text-orange transition"
               >
                 Désactiver
               </button>
             </div>
             <div className="flex items-center gap-3">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink-3">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
               </svg>
               <input
@@ -99,12 +99,12 @@ export default function AudioControl() {
                 onChange={handleVolumeChange}
                 className="flex-1 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 accent-orange"
               />
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink-3">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink">
                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
                 <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
               </svg>
             </div>
-            <div className="text-xs text-center text-ink-3 mt-3 font-mono">
+            <div className="text-xs text-center text-ink mt-3 font-mono">
               Yiruma – ralenti
             </div>
           </div>

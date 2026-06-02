@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import CTABand from '@/components/sections/CTABand';
 import { BreadcrumbLink, HoverCard } from '@/components/ui/ServicePageParts';
+import ServiceVisual from '@/components/sections/ServiceVisual';
 
 export const metadata = {
   title: 'Maintenance Web & Évolution | Cabinet WebSense · Djibouti',
@@ -32,94 +33,11 @@ const MAINTENANCE_TYPES = [
     ],
     duration: 'Contrat mensuel',
     badge: 'Essentiel',
-    svg: (
-      <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', display: 'block' }}>
-        <rect width="480" height="300" fill="#080F0D"/>
-
-        {/* Fond grille monitoring */}
-        <g opacity="0.06" stroke="#4FD4A5">
-          {[50,100,150,200,250].map(y => <line key={y} x1="0" y1={y} x2="480" y2={y} strokeWidth="0.5"/>)}
-          {[60,120,180,240,300,360,420].map(x => <line key={x} x1={x} y1="0" x2={x} y2="300" strokeWidth="0.5"/>)}
-        </g>
-
-        {/* ── Uptime chart — courbe de santé ── */}
-        <rect x="20" y="20" width="296" height="140" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
-        {/* Axe Y */}
-        {[0,25,50,75,100].map((v,i) => (
-          <g key={i}>
-            <text x="28" y={148-i*26} fontFamily="JetBrains Mono" fontSize="7" fill="rgba(255,255,255,0.2)">{v}%</text>
-            <line x1="44" y1={148-i*26} x2="308" y2={148-i*26} stroke="rgba(255,255,255,0.04)" strokeWidth="0.5"/>
-          </g>
-        ))}
-        {/* Zone OK verte */}
-        <rect x="44" y="32" width="255" height="106" rx="4" fill="rgba(29,158,117,0.05)"/>
-        {/* Courbe uptime */}
-        <polyline
-          points="44,148 68,42 92,42 116,42 140,42 152,148 156,148 158,42 180,42 204,42 228,42 252,42 276,42 300,42"
-          stroke="rgba(29,158,117,0.9)" strokeWidth="2" fill="none"/>
-        {/* Zone rouge incident */}
-        <rect x="148" y="42" width="12" height="106" fill="rgba(255,80,80,0.08)"/>
-        <line x1="152" y1="32" x2="152" y2="155" stroke="rgba(255,80,80,0.5)" strokeWidth="1" strokeDasharray="3 2"/>
-        {/* Alerte incident */}
-        <rect x="120" y="22" width="80" height="26" rx="5" fill="rgba(255,80,80,0.15)" stroke="rgba(255,80,80,0.4)"/>
-        <text x="128" y="33" fontFamily="JetBrains Mono" fontSize="7.5" fontWeight="700" fill="rgba(255,100,100,0.9)">⚠ INCIDENT</text>
-        <text x="128" y="43" fontFamily="JetBrains Mono" fontSize="7" fill="rgba(255,255,255,0.4)">Détecté 02:14</text>
-        {/* Résolution */}
-        <rect x="155" y="22" width="80" height="26" rx="5" fill="rgba(29,158,117,0.15)" stroke="rgba(29,158,117,0.4)"/>
-        <text x="163" y="33" fontFamily="JetBrains Mono" fontSize="7.5" fontWeight="700" fill="rgba(79,212,165,0.9)">✓ RÉSOLU</text>
-        <text x="163" y="43" fontFamily="JetBrains Mono" fontSize="7" fill="rgba(255,255,255,0.4)">02:31 — 17 min</text>
-        {/* Label uptime */}
-        <text x="30" y="168" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill="rgba(255,255,255,0.4)" letterSpacing="0.08em">UPTIME 30J</text>
-        <text x="180" y="168" fontFamily="JetBrains Mono" fontSize="22" fontWeight="800" fill="rgba(79,212,165,0.9)">99.94%</text>
-
-        {/* ── SLA status ── */}
-        <rect x="328" y="20" width="132" height="140" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
-        <text x="340" y="40" fontFamily="JetBrains Mono" fontSize="8.5" fontWeight="700" fill="rgba(255,255,255,0.35)" letterSpacing="0.08em">SLA ACTUEL</text>
-        {[
-          { label:'Bloquant',  sla:'< 4h',   ok:true  },
-          { label:'Majeur',    sla:'< 24h',  ok:true  },
-          { label:'Mineur',    sla:'< 72h',  ok:true  },
-          { label:'Évolutif',  sla:'continu',ok:true  },
-        ].map((s,i) => (
-          <g key={i}>
-            <rect x="338" y={52+i*22} width="114" height="16" rx="4"
-              fill={s.ok ? "rgba(29,158,117,0.12)" : "rgba(255,80,80,0.12)"}/>
-            <circle cx="348" cy={60+i*22} r="4"
-              fill={s.ok ? "rgba(79,212,165,0.9)" : "rgba(255,100,100,0.9)"}/>
-            <text x="358" y={62+i*22} fontFamily="JetBrains Mono" fontSize="8" fill="rgba(255,255,255,0.55)">{s.label}</text>
-            <text x="444" y={62+i*22} textAnchor="end" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700"
-              fill={s.ok ? "rgba(79,212,165,0.8)" : "rgba(255,100,100,0.8)"}>{s.sla}</text>
-          </g>
-        ))}
-        <rect x="338" y="148" width="114" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-        <text x="340" y="162" fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(255,255,255,0.3)">Tickets ouverts : 0</text>
-
-        {/* ── Tickets support ── */}
-        <rect x="20" y="178" width="188" height="106" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
-        <text x="32" y="196" fontFamily="JetBrains Mono" fontSize="8.5" fontWeight="700" fill="rgba(255,255,255,0.35)" letterSpacing="0.08em">SUPPORT TICKETS</text>
-        {[
-          { label:'#247 — Page 404 formulaire', status:'✓ résolu', col:'rgba(79,212,165,0.7)'  },
-          { label:'#246 — Lenteur mobile iOS',  status:'✓ résolu', col:'rgba(79,212,165,0.7)'  },
-          { label:'#248 — Mise à jour plugin',   status:'En cours', col:'rgba(232,160,32,0.7)'  },
-        ].map((t,i) => (
-          <g key={i}>
-            <rect x="30" y={204+i*28} width="168" height="22" rx="5" fill="rgba(255,255,255,0.03)"/>
-            <text x="38" y={218+i*28} fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(255,255,255,0.45)">{t.label}</text>
-            <text x="190" y={218+i*28} textAnchor="end" fontFamily="JetBrains Mono" fontSize="7.5" fontWeight="700" fill={t.col}>{t.status}</text>
-          </g>
-        ))}
-
-        {/* ── Agent IA ── */}
-        <rect x="220" y="178" width="240" height="106" rx="10" fill="rgba(232,160,32,0.06)" stroke="rgba(232,160,32,0.2)"/>
-        <text x="232" y="196" fontFamily="JetBrains Mono" fontSize="8.5" fontWeight="700" fill="rgba(232,160,32,0.6)" letterSpacing="0.08em">AGENT IA — DIAGNOSTIC</text>
-        <rect x="232" y="202" width="216" height="20" rx="4" fill="rgba(255,255,255,0.04)"/>
-        <text x="240" y="216" fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(255,255,255,0.35)">Utilisateur : cache nginx bloqué</text>
-        <rect x="232" y="226" width="216" height="20" rx="4" fill="rgba(232,160,32,0.08)"/>
-        <text x="240" y="240" fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(232,160,32,0.8)">Agent : Purge effectuée — 2.3s</text>
-        <rect x="232" y="250" width="216" height="20" rx="4" fill="rgba(29,158,117,0.08)"/>
-        <text x="240" y="264" fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(79,212,165,0.7)">✓ Site opérationnel — incident fermé</text>
-      </svg>
-    ),
+    image: '/images/maintenance/technique.jpg',
+    imageAlt: "Supervision technique d'infrastructure en temps réel",
+    visualTag: 'MAINTENANCE · SUPPORT 24/7',
+    visualTitle: 'Votre site fonctionne. Toujours.',
+    visualSubtitle: 'supervision · SLA · contrat mensuel',
   },
 
   {
@@ -139,120 +57,11 @@ const MAINTENANCE_TYPES = [
     ],
     duration: 'Contrat trimestriel',
     badge: null,
-    svg: (
-      <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', display: 'block' }}>
-        <rect width="480" height="300" fill="#0A1008"/>
-
-        {/* ── Radar des 4 audits ── */}
-        <g transform="translate(140,152)">
-          {/* Anneaux radar */}
-          {[80,60,40,20].map((r,i) => (
-            <polygon key={i}
-              points={[0,1,2,3,4,5].map(k => {
-                const a = k*60 - 90;
-                const rad = a*Math.PI/180;
-                return `${r*Math.cos(rad)},${r*Math.sin(rad)}`;
-              }).join(' ')}
-              fill="none"
-              stroke={i===0?"rgba(29,158,117,0.2)":"rgba(255,255,255,0.05)"}
-              strokeWidth="1"/>
-          ))}
-          {/* Axes */}
-          {[0,1,2,3,4,5].map(k => {
-            const a = k*60-90; const rad = a*Math.PI/180;
-            return <line key={k} x1="0" y1="0" x2={80*Math.cos(rad)} y2={80*Math.sin(rad)} stroke="rgba(255,255,255,0.07)" strokeWidth="0.8"/>;
-          })}
-          {/* Zone de score */}
-          {(() => {
-            const scores = [92,78,85,70,88,95]; // Perf, SEO, Sécu, A11y, GEO, CWV
-            const points = scores.map((s,k) => {
-              const a=(k*60-90)*Math.PI/180; const r=s*0.8;
-              return `${r*Math.cos(a)},${r*Math.sin(a)}`;
-            }).join(' ');
-            return (
-              <g>
-                <polygon points={points} fill="rgba(29,158,117,0.15)" stroke="rgba(79,212,165,0.7)" strokeWidth="1.5"/>
-                {scores.map((s,k) => {
-                  const a=(k*60-90)*Math.PI/180; const r=s*0.8;
-                  return <circle key={k} cx={r*Math.cos(a)} cy={r*Math.sin(a)} r="4" fill="rgba(79,212,165,0.9)"/>;
-                })}
-              </g>
-            );
-          })()}
-          {/* Labels radar */}
-          {[
-            {a:-90, l:'Perf.',   v:'92'},
-            {a:-30, l:'SEO',     v:'78'},
-            {a:30,  l:'Sécu.',   v:'85'},
-            {a:90,  l:'A11y',    v:'70'},
-            {a:150, l:'GEO',     v:'88'},
-            {a:210, l:'CWV',     v:'95'},
-          ].map((lb,i) => {
-            const rad=lb.a*Math.PI/180; const r=96;
-            return (
-              <g key={i}>
-                <text x={r*Math.cos(rad)} y={r*Math.sin(rad)+4}
-                  textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fontWeight="700"
-                  fill="rgba(255,255,255,0.55)">{lb.l}</text>
-                <text x={r*Math.cos(rad)} y={r*Math.sin(rad)+14}
-                  textAnchor="middle" fontFamily="JetBrains Mono" fontSize="8" fontWeight="800"
-                  fill="rgba(79,212,165,0.8)">{lb.v}</text>
-              </g>
-            );
-          })}
-        </g>
-
-        {/* ── Core Web Vitals ── */}
-        <rect x="286" y="20" width="174" height="120" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
-        <text x="298" y="38" fontFamily="JetBrains Mono" fontSize="8.5" fontWeight="700" fill="rgba(255,255,255,0.35)" letterSpacing="0.08em">CORE WEB VITALS</text>
-        {[
-          { m:'LCP',  v:'1.2s',  status:'Bon',    col:'rgba(79,212,165,0.9)', pct:88 },
-          { m:'INP',  v:'42ms',  status:'Bon',    col:'rgba(79,212,165,0.9)', pct:92 },
-          { m:'CLS',  v:'0.04',  status:'Bon',    col:'rgba(79,212,165,0.9)', pct:95 },
-          { m:'TTFB', v:'210ms', status:'Moyen',  col:'rgba(232,160,32,0.9)', pct:65 },
-        ].map((m,i) => (
-          <g key={i}>
-            <text x="298" y={56+i*18} fontFamily="JetBrains Mono" fontSize="9" fontWeight="700" fill="rgba(255,255,255,0.6)">{m.m}</text>
-            <text x="340" y={56+i*18} fontFamily="JetBrains Mono" fontSize="9" fill="rgba(255,255,255,0.4)">{m.v}</text>
-            <rect x="382" y={47+i*18} width="68" height="8" rx="4" fill="rgba(255,255,255,0.06)"/>
-            <rect x="382" y={47+i*18} width={68*m.pct/100} height="8" rx="4" fill={m.col} opacity="0.8"/>
-          </g>
-        ))}
-
-        {/* ── Feuille de route trimestrielle ── */}
-        <rect x="286" y="152" width="174" height="130" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(232,160,32,0.2)"/>
-        <text x="298" y="170" fontFamily="JetBrains Mono" fontSize="8.5" fontWeight="700" fill="rgba(232,160,32,0.6)" letterSpacing="0.08em">ROADMAP Q3</text>
-        {[
-          { p:'P1', label:'Optimiser images WebP',    gain:'+18pts CWV',  col:'rgba(255,80,80,0.8)'    },
-          { p:'P2', label:'Corriger 12 erreurs 404',  gain:'+SEO',        col:'rgba(232,160,32,0.8)'   },
-          { p:'P2', label:'Schema.org GEO markup',    gain:'↑ citations', col:'rgba(232,160,32,0.7)'   },
-          { p:'P3', label:'Contraste WCAG 2.2',       gain:'conformité',  col:'rgba(79,212,165,0.7)'   },
-          { p:'P3', label:'Script analytics < 2kb',   gain:'−0.4s LCP',  col:'rgba(79,212,165,0.6)'   },
-        ].map((r,i) => (
-          <g key={i}>
-            <rect x="296" y={178+i*19} width="154" height="15" rx="4" fill="rgba(255,255,255,0.03)"/>
-            <rect x="296" y={178+i*19} width="18" height="15" rx="4"
-              fill={r.p==='P1'?"rgba(255,80,80,0.25)":r.p==='P2'?"rgba(232,160,32,0.2)":"rgba(79,212,165,0.15)"}/>
-            <text x="305" y={188+i*19} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7.5" fontWeight="700" fill={r.col}>{r.p}</text>
-            <text x="320" y={188+i*19} fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(255,255,255,0.5)">{r.label}</text>
-            <text x="444" y={188+i*19} textAnchor="end" fontFamily="JetBrains Mono" fontSize="7" fill={r.col}>{r.gain}</text>
-          </g>
-        ))}
-
-        {/* ── GEO score ── */}
-        <rect x="20" y="240" width="256" height="48" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(29,158,117,0.2)"/>
-        <text x="32" y="258" fontFamily="JetBrains Mono" fontSize="8.5" fontWeight="700" fill="rgba(255,255,255,0.35)" letterSpacing="0.08em">PRÉSENCE IA GÉNÉRATIVE</text>
-        {[
-          {x:40,  label:'ChatGPT',   v:'Cité 34×/mois', col:'rgba(79,212,165,0.8)'},
-          {x:180, label:'Perplexity',v:'Cité 18×/mois', col:'rgba(232,160,32,0.7)'},
-        ].map((g,i) => (
-          <g key={i}>
-            <text x={g.x} y={274} fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(255,255,255,0.35)">{g.label}</text>
-            <text x={g.x} y={282} fontFamily="JetBrains Mono" fontSize="7.5" fontWeight="700" fill={g.col}>{g.v}</text>
-          </g>
-        ))}
-      </svg>
-    ),
+    image: '/images/maintenance/performance.jpg',
+    imageAlt: 'Audit de performance web et Core Web Vitals sur écran',
+    visualTag: 'PERFORMANCE · AUDIT CONTINU',
+    visualTitle: 'Un site qui gagne en valeur',
+    visualSubtitle: 'Core Web Vitals · SEO · trimestriel',
   },
 ];
 
@@ -332,7 +141,7 @@ export default function MaintenancePage() {
                 <div key={p.label} style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
                   padding: '8px 14px', borderRadius: '100px',
-                  background: 'rgba(255,255,255,0.7)',
+                  background: 'rgba(0, 0, 0, 0.7)',
                   border: '1px solid var(--border)',
                   backdropFilter: 'blur(8px)',
                   fontSize: '14px', fontWeight: 500, color: 'var(--ink-2)',
@@ -352,7 +161,7 @@ export default function MaintenancePage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '88px' }}>
             {MAINTENANCE_TYPES.map((type, idx) => (
               <HoverCard key={type.id} delay={0} plain>
-                <div style={{
+                <div className="svc-grid" style={{
                   display: 'grid',
                   gridTemplateColumns: idx % 2 === 0 ? '1fr 1.1fr' : '1.1fr 1fr',
                   gap: '64px', alignItems: 'center',
@@ -451,14 +260,16 @@ export default function MaintenancePage() {
                     </div>
                   </div>
 
-                  {/* ── Illustration ── */}
-                  <div style={{
-                    order: idx % 2 === 0 ? 1 : 0,
-                    borderRadius: '16px', overflow: 'hidden',
-                    boxShadow: 'var(--shadow-lg)',
-                    border: '1px solid rgba(255,255,255,0.06)', lineHeight: 0,
-                  }}>
-                    {type.svg}
+                  <div style={{ order: idx % 2 === 0 ? 1 : 0 }}>
+                    <ServiceVisual
+                      src={type.image}
+                      alt={type.imageAlt}
+                      tag={type.visualTag}
+                      title={type.visualTitle}
+                      subtitle={type.visualSubtitle}
+                      reverse={idx % 2 === 1}
+                      priority={idx === 0}
+                    />
                   </div>
                 </div>
               </HoverCard>

@@ -13,7 +13,7 @@ export default function BlogPage() {
         <div className="max-w-2xl">
           <div className="section-badge">// insights · journal</div>
           <h1 className="section-h2">Nos articles sur le web et le <em>digital</em></h1>
-          <p className="text-base text-ink2">Tendances, bonnes pratiques, retours d’expérience – tout ce qu’il faut savoir pour réussir en ligne.</p>
+          <p className="text-base text-ink4">Tendances, bonnes pratiques, retours d’expérience – tout ce qu’il faut savoir pour réussir en ligne.</p>
         </div>
       </section>
       <BlogGrid full />

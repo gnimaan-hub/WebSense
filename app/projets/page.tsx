@@ -13,7 +13,7 @@ export default function ProjetsPage() {
         <div className="max-w-2xl">
           <div className="section-badge">// projets récents</div>
           <h1 className="section-h2">Nos dernières <em>réalisations</em></h1>
-          <p className="text-base text-ink2">Une sélection de projets livrés à Djibouti, du site vitrine au tableau de bord métier.</p>
+          <p className="text-base text-ink4">Une sélection de projets livrés à Djibouti, du site vitrine au tableau de bord métier.</p>
         </div>
       </section>
       <ProjectsGrid full />

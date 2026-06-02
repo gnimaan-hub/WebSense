@@ -34,7 +34,7 @@ export default function FAQ() {
             </Link>
             <div style={{
               marginTop: '24px', padding: '16px',
-              background: 'rgba(255,255,255,0.5)',
+              background: 'var(--bg-white)',
               backdropFilter: 'blur(8px)',
               border: '1px dashed var(--border)',
               borderRadius: '12px',

@@ -26,24 +26,24 @@ export default function Approach() {
                 <svg viewBox="0 0 340 340" fill="none" className="w-full h-full">
                   <circle cx="170" cy="170" r="140" stroke="rgba(232,160,32,0.25)"  strokeWidth="1" strokeDasharray="4 4"/>
                   <circle cx="170" cy="170" r="100" stroke="rgba(29,158,117,0.3)"   strokeWidth="1" strokeDasharray="4 4"/>
-                  <circle cx="170" cy="170" r="60"  stroke="rgba(27,38,34,0.15)"   strokeWidth="1" strokeDasharray="3 3"/>
+                  <circle cx="170" cy="170" r="60"  stroke="var(--border)"          strokeWidth="1" strokeDasharray="3 3"/>
                   {/* Core node */}
-                  <circle cx="170" cy="170" r="42" fill="#fff" stroke="rgba(27,38,34,0.1)" strokeWidth="1.5"/>
+                  <circle cx="170" cy="170" r="42" fill="var(--bg-white)" stroke="var(--border)" strokeWidth="1.5"/>
                   <circle cx="170" cy="170" r="32" fill="url(#og)"/>
                   <text x="170" y="166" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fontWeight="700" fill="#fff" letterSpacing="0.05em">PROJET</text>
                   <text x="170" y="180" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fontWeight="700" fill="#fff" letterSpacing="0.05em">CLIENT</text>
                   {/* Inner satellites */}
                   <circle cx="170" cy="110" r="8" fill="#1D9E75"/>
                   <circle cx="222" cy="200" r="8" fill="#E8A020"/>
-                  <circle cx="118" cy="200" r="8" fill="#1B2622"/>
+                  <circle cx="118" cy="200" r="8" fill="var(--green-mid)"/>
                   {/* Outer nodes */}
-                  <g><circle cx="170" cy="30"  r="14" fill="#fff" stroke="rgba(27,38,34,0.1)"/><text x="170" y="35"  textAnchor="middle" fontFamily="JetBrains Mono" fontSize="11" fontWeight="700" fill="#0A5C49">01</text></g>
-                  <g><circle cx="291" cy="241" r="14" fill="#fff" stroke="rgba(27,38,34,0.1)"/><text x="291" y="246" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="11" fontWeight="700" fill="#E8A020">02</text></g>
-                  <g><circle cx="49"  cy="241" r="14" fill="#fff" stroke="rgba(27,38,34,0.1)"/><text x="49"  y="246" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="11" fontWeight="700" fill="#1B2622">03</text></g>
+                  <g><circle cx="170" cy="30"  r="14" fill="var(--bg-white)" stroke="var(--border)"/><text x="170" y="35"  textAnchor="middle" fontFamily="JetBrains Mono" fontSize="11" fontWeight="700" fill="var(--green)">01</text></g>
+                  <g><circle cx="291" cy="241" r="14" fill="var(--bg-white)" stroke="var(--border)"/><text x="291" y="246" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="11" fontWeight="700" fill="var(--or)">02</text></g>
+                  <g><circle cx="49"  cy="241" r="14" fill="var(--bg-white)" stroke="var(--border)"/><text x="49"  y="246" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="11" fontWeight="700" fill="var(--ink)">03</text></g>
                   {/* Labels */}
-                  <text x="170" y="14"  textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fill="#3F4944">AUTONOMIE</text>
-                  <text x="291" y="270" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fill="#3F4944">PERCEPTION</text>
-                  <text x="49"  y="270" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fill="#3F4944">RIGUEUR</text>
+                  <text x="170" y="14"  textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fill="var(--ink-3)">AUTONOMIE</text>
+                  <text x="291" y="270" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fill="var(--ink-3)">PERCEPTION</text>
+                  <text x="49"  y="270" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="9" fill="var(--ink-3)">RIGUEUR</text>
                   <defs>
                     <radialGradient id="og">
                       <stop offset="0%"   stopColor="#1D9E75"/>
@@ -55,7 +55,7 @@ export default function Approach() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '8px', marginTop: '18px', fontFamily: 'var(--mono)', fontSize: '10px', color: 'var(--ink-3)', textAlign: 'center' }}>
                 <div style={{ padding: '6px', background: 'var(--bg)', borderRadius: '6px' }}><span style={{ color: 'var(--green)' }}>●</span> Autonomie</div>
                 <div style={{ padding: '6px', background: 'var(--bg)', borderRadius: '6px' }}><span style={{ color: 'var(--or)' }}>●</span> Perception</div>
-                <div style={{ padding: '6px', background: 'var(--bg)', borderRadius: '6px' }}><span style={{ color: 'var(--ink)' }}>●</span> Rigueur</div>
+                <div style={{ padding: '6px', background: 'var(--bg)', borderRadius: '6px' }}><span style={{ color: 'var(--green-mid)' }}>●</span> Rigueur</div>
               </div>
             </div>
           </RevealOnScroll>

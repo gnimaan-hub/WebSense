@@ -50,7 +50,7 @@ export function HoverCard({
     <div className="rev" style={{ transitionDelay: `${delay}ms` }}>
       <div
         style={{
-          background: '#fff',
+          background: 'var(--bg-white)',
           border: `1.5px solid ${hovered ? 'rgba(232,160,32,0.3)' : 'var(--border)'}`,
           borderRadius: '18px', overflow: 'hidden',
           boxShadow: hovered ? 'var(--shadow-md)' : 'var(--shadow-sm)',
@@ -98,8 +98,8 @@ export function HoverRow({ step, delay = 0 }: { step: ProcessStep; delay?: numbe
       >
         <span style={{
           width: '44px', height: '44px', borderRadius: '50%',
-          background: hovered ? 'var(--or)' : 'var(--bg-dark)',
-          color: '#fff',
+          background: hovered ? 'var(--or)' : 'var(--bg-white)',
+          color: hovered ? '#fff' : 'var(--ink)',
           fontFamily: 'var(--mono)', fontSize: '14px', fontWeight: 800,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           flexShrink: 0,
@@ -147,7 +147,7 @@ export function HoverBadge({ item, delay = 0 }: { item: DeliverableItem; delay?:
         style={{
           display: 'flex', gap: '16px', alignItems: 'flex-start',
           padding: '20px 22px', borderRadius: '14px',
-          background: '#fff',
+          background: 'var(--bg-white)',
           border: `1.5px solid ${hovered ? 'rgba(232,160,32,0.25)' : 'var(--border)'}`,
           boxShadow: hovered ? 'var(--shadow-md)' : 'var(--shadow-sm)',
           transform: hovered ? 'translateX(4px)' : 'none',
@@ -196,7 +196,7 @@ export function StackItem({ cat, items }: { cat: string; items: string[] }) {
   return (
     <div
       style={{
-        background: '#fff',
+        background: 'var(--bg-white)',
         border: `1.5px solid ${hovered ? 'rgba(232,160,32,0.3)' : 'var(--border)'}`,
         borderRadius: '14px', padding: '18px 20px',
         boxShadow: hovered ? 'var(--shadow-md)' : 'var(--shadow-sm)',
@@ -281,7 +281,7 @@ export function FaqItem({
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           color: open ? '#fff' : 'var(--ink-3)',
           fontSize: '18px', flexShrink: 0,
-          background: open ? 'var(--or)' : '#fff',
+          background: open ? 'var(--or)' : 'var(--bg-white)',
           borderColor: open ? 'var(--or)' : 'var(--border)',
           transform: open ? 'rotate(45deg)' : 'none',
           boxShadow: open ? 'var(--shadow-or)' : 'none',

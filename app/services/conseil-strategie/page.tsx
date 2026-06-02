@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import CTABand from '@/components/sections/CTABand';
 import { BreadcrumbLink, HoverCard } from '@/components/ui/ServicePageParts';
+import ServiceVisual from '@/components/sections/ServiceVisual';
 
 export const metadata = {
   title: 'Conseil en Stratégie Web | Cabinet WebSense · Djibouti',
@@ -32,72 +33,11 @@ const CONSEIL_TYPES = [
     ],
     duration: '2 à 4 semaines',
     badge: 'Nouveau & différenciant',
-    svg: (
-      <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', display: 'block' }}>
-        <rect width="480" height="300" fill="#0A1210"/>
-        {/* Réseau de nœuds IA */}
-        {/* Lignes de connexion */}
-        <line x1="240" y1="150" x2="100" y2="80"  stroke="rgba(232,160,32,0.2)" strokeWidth="1"/>
-        <line x1="240" y1="150" x2="380" y2="80"  stroke="rgba(232,160,32,0.2)" strokeWidth="1"/>
-        <line x1="240" y1="150" x2="80"  y2="220" stroke="rgba(29,158,117,0.2)" strokeWidth="1"/>
-        <line x1="240" y1="150" x2="400" y2="220" stroke="rgba(29,158,117,0.2)" strokeWidth="1"/>
-        <line x1="240" y1="150" x2="240" y2="40"  stroke="rgba(232,160,32,0.15)" strokeWidth="1"/>
-        <line x1="100" y1="80"  x2="240" y2="40"  stroke="rgba(255,255,255,0.06)" strokeWidth="0.8"/>
-        <line x1="380" y1="80"  x2="240" y2="40"  stroke="rgba(255,255,255,0.06)" strokeWidth="0.8"/>
-        <line x1="100" y1="80"  x2="80"  y2="220" stroke="rgba(255,255,255,0.05)" strokeWidth="0.8"/>
-        <line x1="380" y1="80"  x2="400" y2="220" stroke="rgba(255,255,255,0.05)" strokeWidth="0.8"/>
-
-        {/* Nœud central — Marque */}
-        <circle cx="240" cy="150" r="36" fill="rgba(232,160,32,0.12)" stroke="rgba(232,160,32,0.5)" strokeWidth="1.5"/>
-        <circle cx="240" cy="150" r="24" fill="rgba(232,160,32,0.2)"/>
-        <text x="240" y="146" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill="rgba(232,160,32,0.9)" letterSpacing="0.06em">VOTRE</text>
-        <text x="240" y="158" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill="rgba(232,160,32,0.9)" letterSpacing="0.06em">MARQUE</text>
-
-        {/* Nœuds IA — moteurs */}
-        {[
-          {cx:100, cy:80,  label:'ChatGPT',   active:true  },
-          {cx:380, cy:80,  label:'Perplexity', active:true  },
-          {cx:240, cy:40,  label:'SGE',        active:false },
-          {cx:80,  cy:220, label:'Claude',     active:false },
-          {cx:400, cy:220, label:'Copilot',    active:false },
-        ].map((n,i) => (
-          <g key={i}>
-            <circle cx={n.cx} cy={n.cy} r={n.active?20:16}
-              fill={n.active?"rgba(29,158,117,0.2)":"rgba(255,255,255,0.05)"}
-              stroke={n.active?"rgba(29,158,117,0.6)":"rgba(255,255,255,0.15)"}
-              strokeWidth="1.5"/>
-            {n.active && <circle cx={n.cx} cy={n.cy} r="30"
-              fill="none" stroke="rgba(29,158,117,0.12)" strokeWidth="1" strokeDasharray="3 3"/>}
-            <text x={n.cx} y={n.cy+4} textAnchor="middle"
-              fontFamily="JetBrains Mono" fontSize="8" fontWeight="700"
-              fill={n.active?"rgba(79,212,165,0.9)":"rgba(255,255,255,0.35)"}>
-              {n.label}
-            </text>
-          </g>
-        ))}
-
-        {/* Bulle de réponse IA */}
-        <rect x="270" y="168" width="180" height="56" rx="10" fill="rgba(29,158,117,0.1)" stroke="rgba(29,158,117,0.3)"/>
-        <path d="M272 186 L260 178" stroke="rgba(29,158,117,0.3)" strokeWidth="1.5"/>
-        <rect x="280" y="178" width="80" height="7" rx="3" fill="rgba(255,255,255,0.3)"/>
-        <rect x="280" y="190" width="140" height="6" rx="3" fill="rgba(255,255,255,0.15)"/>
-        <rect x="280" y="202" width="120" height="6" rx="3" fill="rgba(255,255,255,0.12)"/>
-        <rect x="280" y="214" width="60" height="6" rx="3" fill="rgba(232,160,32,0.5)"/>
-
-        {/* Score GEO */}
-        <rect x="20" y="162" width="110" height="60" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
-        <text x="30" y="178" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill="rgba(255,255,255,0.35)" letterSpacing="0.08em">GEO SCORE</text>
-        <text x="30" y="204" fontFamily="JetBrains Mono" fontSize="28" fontWeight="800" fill="rgba(232,160,32,0.85)">87</text>
-        <text x="72" y="204" fontFamily="JetBrains Mono" fontSize="14" fill="rgba(255,255,255,0.3)">/100</text>
-        <rect x="30" y="210" width="90" height="5" rx="2" fill="rgba(255,255,255,0.08)"/>
-        <rect x="30" y="210" width="78" height="5" rx="2" fill="rgba(232,160,32,0.6)"/>
-
-        {/* Particules de données */}
-        {[[160,115],[180,185],[300,130],[320,170],[140,145],[260,110]].map(([x,y],i)=>(
-          <circle key={i} cx={x} cy={y} r="2" fill="rgba(232,160,32,0.5)" opacity={0.4+i*0.1}/>
-        ))}
-      </svg>
-    ),
+    image: '/images/conseil/geo.jpg',
+    imageAlt: "Réponse d'une IA générative consultée sur écran",
+    visualTag: 'STRATÉGIE · IA & GEO',
+    visualTitle: 'Être cité par les IA, pas seulement référencé',
+    visualSubtitle: 'audit GEO · contenu · 2 à 4 sem.',
   },
 
   {
@@ -117,109 +57,11 @@ const CONSEIL_TYPES = [
     ],
     duration: '3 à 6 semaines',
     badge: null,
-    svg: (
-      <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', display: 'block' }}>
-        <rect width="480" height="300" fill="#0E1B16"/>
-        {/* Fond dégradé */}
-        <rect width="480" height="300" fill="url(#tgrad)"/>
-
-        {/* Feuille de route — timeline */}
-        {/* Ligne centrale */}
-        <line x1="40" y1="150" x2="440" y2="150" stroke="rgba(29,158,117,0.3)" strokeWidth="2"/>
-        {/* Étapes */}
-        {[
-          {x:80,  label:'Audit',       detail:'Maturité\nnumérique',   done:true,  col:'rgba(29,158,117,0.9)' },
-          {x:180, label:'Stratégie',   detail:'Feuille\nde route',     done:true,  col:'rgba(29,158,117,0.9)' },
-          {x:280, label:'Déploiement', detail:'Flux de\ntravail IA',   done:false, col:'rgba(232,160,32,0.9)' },
-          {x:380, label:'Adoption',    detail:'Formation\n& conduite',  done:false, col:'rgba(255,255,255,0.4)' },
-        ].map((s,i)=>(
-          <g key={i}>
-            {/* Ligne de connexion */}
-            {i < 3 && <line x1={s.x} y1="150" x2={s.x+100} y2="150"
-              stroke={s.done?"rgba(29,158,117,0.6)":"rgba(255,255,255,0.1)"}
-              strokeWidth="2" strokeDasharray={s.done?"none":"4 3"}/>}
-            {/* Cercle */}
-            <circle cx={s.x} cy={150} r={s.done?14:12}
-              fill={s.done?"rgba(29,158,117,0.25)":"rgba(255,255,255,0.06)"}
-              stroke={s.col} strokeWidth="2"/>
-            {s.done && <circle cx={s.x} cy={150} r={6} fill={s.col}/>}
-            {/* Label haut */}
-            <text x={s.x} y={130} textAnchor="middle"
-              fontFamily="JetBrains Mono" fontSize="9" fontWeight="700"
-              fill={s.done?"rgba(255,255,255,0.7)":"rgba(255,255,255,0.35)"}>
-              {s.label}
-            </text>
-            {/* Détail bas */}
-            <text x={s.x} y={174} textAnchor="middle"
-              fontFamily="JetBrains Mono" fontSize="7.5"
-              fill={s.done?"rgba(79,212,165,0.7)":"rgba(255,255,255,0.2)"}>
-              {s.detail.split('\n')[0]}
-            </text>
-            <text x={s.x} y={184} textAnchor="middle"
-              fontFamily="JetBrains Mono" fontSize="7.5"
-              fill={s.done?"rgba(79,212,165,0.7)":"rgba(255,255,255,0.2)"}>
-              {s.detail.split('\n')[1]}
-            </text>
-          </g>
-        ))}
-
-        {/* Bloc diagnostic */}
-        <rect x="20" y="30" width="180" height="88" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
-        <text x="32" y="50" fontFamily="JetBrains Mono" fontSize="9" fontWeight="700" fill="rgba(255,255,255,0.4)" letterSpacing="0.08em">MATURITÉ DIGITALE</text>
-        {[
-          {label:'Stack technique',   pct:72},
-          {label:'Culture data',      pct:45},
-          {label:'Compétences IA',    pct:30},
-          {label:'Processus',         pct:60},
-        ].map((b,i)=>(
-          <g key={i}>
-            <text x="32" y={68+i*17} fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(255,255,255,0.4)">{b.label}</text>
-            <rect x="110" y={61+i*17} width="80" height="7" rx="3" fill="rgba(255,255,255,0.06)"/>
-            <rect x="110" y={61+i*17} width={b.pct*0.8} height="7" rx="3"
-              fill={b.pct>60?"rgba(29,158,117,0.7)":b.pct>40?"rgba(232,160,32,0.7)":"rgba(255,100,100,0.5)"}/>
-            <text x="196" y={68+i*17} fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(255,255,255,0.5)">{b.pct}%</text>
-          </g>
-        ))}
-
-        {/* Bloc architecture composable */}
-        <rect x="280" y="30" width="180" height="88" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(232,160,32,0.2)"/>
-        <text x="292" y="50" fontFamily="JetBrains Mono" fontSize="9" fontWeight="700" fill="rgba(232,160,32,0.6)" letterSpacing="0.08em">ARCHITECTURE</text>
-        {[
-          {y:62, w:60,  label:'CMS Headless',  col:'rgba(29,158,117,0.5)'},
-          {y:76, w:90,  label:'API Layer',      col:'rgba(232,160,32,0.5)'},
-          {y:90, w:75,  label:'CDP / Data',     col:'rgba(159,225,203,0.4)'},
-          {y:104,w:50,  label:'AI Services',    col:'rgba(232,160,32,0.7)'},
-        ].map((l,i)=>(
-          <g key={i}>
-            <rect x="292" y={l.y} width={l.w} height="11" rx="3" fill={l.col}/>
-            <text x={296} y={l.y+8} fontFamily="JetBrains Mono" fontSize="6.5" fontWeight="700" fill="rgba(255,255,255,0.8)">{l.label}</text>
-          </g>
-        ))}
-
-        {/* ROI attendu */}
-        <rect x="20" y="210" width="440" height="68" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)"/>
-        <text x="32" y="228" fontFamily="JetBrains Mono" fontSize="9" fontWeight="700" fill="rgba(255,255,255,0.35)" letterSpacing="0.1em">VALEUR PROJETÉE</text>
-        {[
-          {x:50,  v:'−35%', l:'Temps\nsaisi manuellement',   c:'rgba(29,158,117,0.8)'},
-          {x:170, v:'×2.4', l:'Vitesse de mise\nsur le marché', c:'rgba(232,160,32,0.8)'},
-          {x:290, v:'+28%', l:'Satisfaction\ncollaborateurs',  c:'rgba(159,225,203,0.7)'},
-          {x:390, v:'−60%', l:'Coûts de\nsupport IT',         c:'rgba(29,158,117,0.7)'},
-        ].map((m,i)=>(
-          <g key={i}>
-            <text x={m.x+40} y={254} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="20" fontWeight="800" fill={m.c}>{m.v}</text>
-            <text x={m.x+40} y={266} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7" fill="rgba(255,255,255,0.3)">{m.l.split('\n')[0]}</text>
-            <text x={m.x+40} y={275} textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7" fill="rgba(255,255,255,0.3)">{m.l.split('\n')[1]}</text>
-          </g>
-        ))}
-
-        <defs>
-          <linearGradient id="tgrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#15201D" stopOpacity="1"/>
-            <stop offset="100%" stopColor="#0A1210" stopOpacity="1"/>
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
+    image: '/images/conseil/transformation.jpg',
+    imageAlt: 'Atelier de stratégie de transformation numérique',
+    visualTag: 'CONSEIL · TRANSFORMATION',
+    visualTitle: "Intégrer l'IA sans suivre la mode",
+    visualSubtitle: 'feuille de route · 3 à 6 sem.',
   },
 
   {
@@ -239,75 +81,11 @@ const CONSEIL_TYPES = [
     ],
     duration: '3 à 5 semaines',
     badge: null,
-    svg: (
-      <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', display: 'block' }}>
-        <rect width="480" height="300" fill="#081410"/>
-        {/* Fond vert forêt profond */}
-        <ellipse cx="100" cy="80"  rx="180" ry="120" fill="rgba(10,92,73,0.18)"/>
-        <ellipse cx="400" cy="220" rx="150" ry="100" fill="rgba(29,158,117,0.1)"/>
-
-        {/* Globe / Planète centrale */}
-        <circle cx="240" cy="148" r="70" fill="rgba(10,92,73,0.2)" stroke="rgba(29,158,117,0.4)" strokeWidth="1.5"/>
-        <circle cx="240" cy="148" r="70" fill="none" stroke="rgba(79,212,165,0.15)" strokeWidth="1" strokeDasharray="3 4"/>
-        {/* Continents stylisés */}
-        <path d="M195 118 Q210 108 225 115 Q235 110 250 118 Q262 120 268 132 Q272 144 265 152 Q255 162 242 158 Q228 162 218 154 Q205 148 198 136 Q192 128 195 118Z"
-          fill="rgba(29,158,117,0.4)"/>
-        <path d="M215 165 Q222 158 232 162 Q240 165 244 174 Q246 182 238 186 Q228 188 220 182 Q212 176 215 165Z"
-          fill="rgba(29,158,117,0.3)"/>
-        <path d="M248 132 Q255 126 265 130 Q272 134 270 142 Q268 150 260 152 Q252 154 248 146 Q244 138 248 132Z"
-          fill="rgba(29,158,117,0.25)"/>
-        {/* Orbite de données */}
-        <ellipse cx="240" cy="148" rx="100" ry="28" fill="none" stroke="rgba(232,160,32,0.2)" strokeWidth="1" strokeDasharray="4 4"/>
-        <circle cx="340" cy="148" r="6" fill="rgba(232,160,32,0.7)"/>
-
-        {/* 4 piliers RSE autour */}
-        {[
-          {angle:320, r:135, icon:'♻', label:'Éco-conception', col:'rgba(29,158,117,0.8)' },
-          {angle:50,  r:135, icon:'⚖', label:'Éthique IA',     col:'rgba(232,160,32,0.8)' },
-          {angle:140, r:135, icon:'♿', label:'Accessibilité',  col:'rgba(159,225,203,0.7)'},
-          {angle:220, r:135, icon:'🏷', label:'Labels RSE',     col:'rgba(79,212,165,0.8)' },
-        ].map((p,i)=>{
-          const rad = p.angle * Math.PI / 180;
-          const cx  = 240 + p.r * Math.cos(rad);
-          const cy  = 148 + p.r * Math.sin(rad);
-          const lx  = 240 + (p.r - 42) * Math.cos(rad);
-          const ly  = 148 + (p.r - 42) * Math.sin(rad);
-          return (
-            <g key={i}>
-              <line x1={lx} y1={ly} x2={cx} y2={cy} stroke={p.col} strokeWidth="1" opacity="0.4"/>
-              <circle cx={cx} cy={cy} r="22" fill="rgba(255,255,255,0.04)" stroke={p.col} strokeWidth="1.5"/>
-              <text x={cx} y={cy+2} textAnchor="middle" fontSize="14">{p.icon}</text>
-              <text x={cx} y={cy+18} textAnchor="middle"
-                fontFamily="JetBrains Mono" fontSize="7.5" fontWeight="700" fill={p.col}>
-                {p.label}
-              </text>
-            </g>
-          );
-        })}
-
-        {/* Score empreinte carbone */}
-        <rect x="14" y="210" width="150" height="72" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(29,158,117,0.25)"/>
-        <text x="24" y="228" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill="rgba(255,255,255,0.35)" letterSpacing="0.1em">EMPREINTE CO₂</text>
-        <text x="24" y="258" fontFamily="JetBrains Mono" fontSize="26" fontWeight="800" fill="rgba(79,212,165,0.9)">−42%</text>
-        <text x="24" y="272" fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(255,255,255,0.3)">vs. baseline 2023</text>
-
-        {/* Certifications */}
-        <rect x="316" y="210" width="150" height="72" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(232,160,32,0.2)"/>
-        <text x="326" y="228" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill="rgba(255,255,255,0.35)" letterSpacing="0.1em">CERTIFICATIONS</text>
-        {['B Corp', 'Lucie 26000', 'NR Label'].map((c,i)=>(
-          <g key={i}>
-            <rect x="326" y={236+i*14} width="8" height="8" rx="2" fill="rgba(29,158,117,0.6)"/>
-            <text x="340" y={244+i*14} fontFamily="JetBrains Mono" fontSize="8.5" fill="rgba(255,255,255,0.55)">{c}</text>
-          </g>
-        ))}
-
-        {/* Onde verte décorative */}
-        <path d="M0 290 Q60 270 120 282 Q180 294 240 278 Q300 262 360 276 Q420 290 480 272"
-          stroke="rgba(29,158,117,0.2)" strokeWidth="1.5" fill="none"/>
-        <path d="M0 298 Q80 284 160 292 Q240 300 320 286 Q400 272 480 284"
-          stroke="rgba(29,158,117,0.1)" strokeWidth="1" fill="none"/>
-      </svg>
-    ),
+    image: '/images/conseil/rse.jpg',
+    imageAlt: 'Démarche de numérique responsable et sobriété énergétique',
+    visualTag: 'RSE · NUMÉRIQUE RESPONSABLE',
+    visualTitle: 'La durabilité comme avantage',
+    visualSubtitle: 'sobriété · certifications · 3 à 5 sem.',
   },
 
   {
@@ -327,91 +105,11 @@ const CONSEIL_TYPES = [
     ],
     duration: '4 à 8 semaines',
     badge: null,
-    svg: (
-      <svg viewBox="0 0 480 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', display: 'block' }}>
-        <rect width="480" height="300" fill="#0E1416"/>
-        {/* Grille de données */}
-        <g opacity="0.05" stroke="#ffffff">
-          {[50,100,150,200,250].map(y=><line key={y} x1="0" y1={y} x2="480" y2={y} strokeWidth="0.5"/>)}
-          {[80,160,240,320,400].map(x=><line key={x} x1={x} y1="0" x2={x} y2="300" strokeWidth="0.5"/>)}
-        </g>
-
-        {/* Profil utilisateur central */}
-        <circle cx="240" cy="138" r="44" fill="rgba(232,160,32,0.1)" stroke="rgba(232,160,32,0.4)" strokeWidth="1.5"/>
-        <circle cx="240" cy="120" r="16" fill="rgba(232,160,32,0.3)"/>
-        <rect x="216" y="140" width="48" height="26" rx="8" fill="rgba(232,160,32,0.2)"/>
-        <text x="240" y="174" textAnchor="middle" fontFamily="JetBrains Mono" fontSize="7.5" fontWeight="700" fill="rgba(232,160,32,0.8)" letterSpacing="0.06em">PROFIL 360°</text>
-
-        {/* Sources de données qui affluent vers le centre */}
-        {[
-          {cx:80,  cy:70,  label:'Déclaratif',  desc:'Quiz\nPréférences',   col:'rgba(29,158,117,0.7)' },
-          {cx:400, cy:70,  label:'Transact.',   desc:'Achats\nHistorique',   col:'rgba(232,160,32,0.7)' },
-          {cx:60,  cy:210, label:'Comporte.',   desc:'Navigation\nClicks',   col:'rgba(159,225,203,0.6)'},
-          {cx:420, cy:210, label:'Contextuel',  desc:'Géo\nAppareil',        col:'rgba(79,212,165,0.6)' },
-        ].map((s,i)=>{
-          const dx = 240 - s.cx, dy = 138 - s.cy;
-          const len = Math.sqrt(dx*dx+dy*dy);
-          const ux = dx/len, uy = dy/len;
-          return (
-            <g key={i}>
-              {/* Ligne flux */}
-              <line
-                x1={s.cx + ux*28} y1={s.cy + uy*28}
-                x2={240 - ux*48}  y2={138 - uy*48}
-                stroke={s.col} strokeWidth="1.5" strokeDasharray="4 3" opacity="0.7"/>
-              {/* Particules */}
-              {[0.35,0.6].map((t,j)=>(
-                <circle key={j} r="3"
-                  cx={s.cx + ux*28 + (240-s.cx-ux*76)*t}
-                  cy={s.cy + uy*28 + (138-s.cy-uy*76)*t}
-                  fill={s.col} opacity="0.8"/>
-              ))}
-              {/* Nœud source */}
-              <rect x={s.cx-32} y={s.cy-24} width="64" height="48" rx="8"
-                fill="rgba(255,255,255,0.04)" stroke={s.col} strokeWidth="1.5"/>
-              <text x={s.cx} y={s.cy-8} textAnchor="middle"
-                fontFamily="JetBrains Mono" fontSize="8.5" fontWeight="700" fill={s.col}>
-                {s.label}
-              </text>
-              <text x={s.cx} y={s.cy+5} textAnchor="middle"
-                fontFamily="JetBrains Mono" fontSize="7" fill="rgba(255,255,255,0.3)">
-                {s.desc.split('\n')[0]}
-              </text>
-              <text x={s.cx} y={s.cy+15} textAnchor="middle"
-                fontFamily="JetBrains Mono" fontSize="7" fill="rgba(255,255,255,0.3)">
-                {s.desc.split('\n')[1]}
-              </text>
-            </g>
-          );
-        })}
-
-        {/* CDP — colonne droite */}
-        <rect x="316" y="118" width="140" height="88" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(232,160,32,0.25)"/>
-        <text x="326" y="136" fontFamily="JetBrains Mono" fontSize="8.5" fontWeight="700" fill="rgba(232,160,32,0.7)" letterSpacing="0.08em">CDP — SEGMENTS</text>
-        {[
-          {label:'Acheteurs fidèles',  n:'1 284', col:'rgba(29,158,117,0.7)'},
-          {label:'Prospects chauds',   n:'892',   col:'rgba(232,160,32,0.7)'},
-          {label:'Inactifs > 90j',     n:'3 107', col:'rgba(255,255,255,0.3)'},
-          {label:'Nouveaux visiteurs', n:'4 562', col:'rgba(159,225,203,0.5)'},
-        ].map((seg,i)=>(
-          <g key={i}>
-            <text x="326" y={153+i*16} fontFamily="JetBrains Mono" fontSize="7.5" fill="rgba(255,255,255,0.4)">{seg.label}</text>
-            <text x="448" y={153+i*16} textAnchor="end" fontFamily="JetBrains Mono" fontSize="8" fontWeight="700" fill={seg.col}>{seg.n}</text>
-          </g>
-        ))}
-
-        {/* Consentement / conformité */}
-        <rect x="24" y="236" width="432" height="50" rx="8" fill="rgba(29,158,117,0.07)" stroke="rgba(29,158,117,0.25)"/>
-        <text x="40" y="256" fontFamily="JetBrains Mono" fontSize="9" fontWeight="700" fill="rgba(79,212,165,0.7)" letterSpacing="0.08em">CONFORMITÉ</text>
-        {['RGPD ✓','CMP configurée ✓','Consentement éclairé ✓','Cookies tiers : 0','Universal ID : actif'].map((t,i)=>(
-          <text key={i} x={40+i*88} y={274}
-            fontFamily="JetBrains Mono" fontSize="7.5"
-            fill={i<3?"rgba(79,212,165,0.6)":"rgba(232,160,32,0.6)"}>
-            {t}
-          </text>
-        ))}
-      </svg>
-    ),
+    image: '/images/conseil/data.jpg',
+    imageAlt: 'Visualisation de données clients unifiées sur écran',
+    visualTag: 'DATA · FIRST-PARTY',
+    visualTitle: 'Reprendre le contrôle de vos données',
+    visualSubtitle: 'CDP · RGPD · 4 à 8 sem.',
   },
 ];
 
@@ -494,7 +192,7 @@ export default function ConseilStrategiePage() {
                 <div key={p.label} style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
                   padding: '8px 14px', borderRadius: '100px',
-                  background: 'rgba(255,255,255,0.7)',
+                  background: 'rgba(0, 0, 0, 0.7)',
                   border: '1px solid var(--border)',
                   backdropFilter: 'blur(8px)',
                   fontSize: '14px', fontWeight: 500, color: 'var(--ink-2)',
@@ -514,7 +212,7 @@ export default function ConseilStrategiePage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '88px' }}>
             {CONSEIL_TYPES.map((type, idx) => (
               <HoverCard key={type.id} delay={0} plain>
-                <div style={{
+                <div className="svc-grid" style={{
                   display: 'grid',
                   gridTemplateColumns: idx % 2 === 0 ? '1fr 1.1fr' : '1.1fr 1fr',
                   gap: '64px', alignItems: 'center',
@@ -605,14 +303,16 @@ export default function ConseilStrategiePage() {
                     </div>
                   </div>
 
-                  {/* ── Illustration ── */}
-                  <div style={{
-                    order: idx % 2 === 0 ? 1 : 0,
-                    borderRadius: '16px', overflow: 'hidden',
-                    boxShadow: 'var(--shadow-lg)',
-                    border: '1px solid rgba(255,255,255,0.06)', lineHeight: 0,
-                  }}>
-                    {type.svg}
+                  <div style={{ order: idx % 2 === 0 ? 1 : 0 }}>
+                    <ServiceVisual
+                      src={type.image}
+                      alt={type.imageAlt}
+                      tag={type.visualTag}
+                      title={type.visualTitle}
+                      subtitle={type.visualSubtitle}
+                      reverse={idx % 2 === 1}
+                      priority={idx === 0}
+                    />
                   </div>
 
                 </div>

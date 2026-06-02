@@ -13,7 +13,7 @@ export default function StackPage() {
         <div className="max-w-2xl">
           <div className="section-badge">// stack technique</div>
           <h1 className="section-h2">Des technologies <em>choisies</em>, pas accumulées</h1>
-          <p className="text-base text-ink2">Chaque outil est sélectionné pour sa robustesse, sa maintenabilité et sa pertinence — pas pour faire joli sur une page d'accueil.</p>
+          <p className="text-base text-ink4">Chaque outil est sélectionné pour sa robustesse, sa maintenabilité et sa pertinence — pas pour faire joli sur une page d'accueil.</p>
         </div>
       </section>
       <TechStack full />
