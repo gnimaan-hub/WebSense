@@ -219,7 +219,7 @@ export default function ConseilStrategiePage() {
                 }}>
 
                   {/* ── Texte ── */}
-                  <div style={{ order: idx % 2 === 0 ? 0 : 1 }}>
+                  <div className="svc-text-col" style={{ order: idx % 2 === 0 ? 0 : 1 }}>
                     <BlockNum num={type.num} badge={type.badge} />
 
                     <h2 style={{
@@ -303,7 +303,7 @@ export default function ConseilStrategiePage() {
                     </div>
                   </div>
 
-                  <div style={{ order: idx % 2 === 0 ? 1 : 0 }}>
+                  <div className="svc-visual-col" style={{ order: idx % 2 === 0 ? 1 : 0 }}>
                     <ServiceVisual
                       src={type.image}
                       alt={type.imageAlt}

@@ -97,7 +97,9 @@ export default function BlogGrid({ full = false }: BlogGridProps) {
                   </div>
                   <h3 className="blog-title">{article.title}</h3>
                   <p className="blog-excerpt">{article.excerpt}</p>
-                  <span className="blog-read-more">Lire l&apos;article →</span>
+                  <Link href={`/blog/${['pourquoi-refonte-site-web-2026','combien-coute-site-web-professionnel-djibouti','ux-design-experience-utilisateur-clients'][idx]}`} className="blog-read-more">
+                    Lire l&apos;article →
+                  </Link>
                 </div>
               </article>
             </RevealOnScroll>

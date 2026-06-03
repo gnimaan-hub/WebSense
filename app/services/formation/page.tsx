@@ -204,7 +204,7 @@ export default function FormationPage() {
                   gridTemplateColumns: idx % 2 === 0 ? '1fr 1.1fr' : '1.1fr 1fr',
                   gap: '64px', alignItems: 'center',
                 }}>
-                  <div style={{ order: idx % 2 === 0 ? 0 : 1 }}>
+                  <div className="svc-text-col" style={{ order: idx % 2 === 0 ? 0 : 1 }}>
                     <BlockNum num={type.num} badge={type.badge} />
                     <h2 style={{ fontSize: 'clamp(24px,3vw,36px)', fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '10px' }}>
                       {type.label}
@@ -250,7 +250,7 @@ export default function FormationPage() {
                       </Link>
                     </div>
                   </div>
-                  <div style={{ order: idx % 2 === 0 ? 1 : 0 }}>
+                  <div className="svc-visual-col" style={{ order: idx % 2 === 0 ? 1 : 0 }}>
                     <FormationVisual
                       src={type.image}
                       alt={type.imageAlt}

@@ -105,7 +105,7 @@ export default function AudioControl() {
               </svg>
             </div>
             <div className="text-xs text-center text-ink mt-3 font-mono">
-              Yiruma – ralenti
+              Calme d'automne
             </div>
           </div>
         )}

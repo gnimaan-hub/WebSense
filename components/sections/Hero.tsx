@@ -87,7 +87,7 @@ export default function Hero() {
 
             <RevealOnScroll direction="up" delay={300}>
               <div className="flex flex-wrap gap-2.5 mb-8">
-                <Link href="/contact" className="btn-primary">
+                <Link href="/contact" className="btn-primary btn-hero-cta">
                   <span>Discutons de votre projet</span> <span>→</span>
                 </Link>
                 <Link href="#services" className="btn-outline">

@@ -1,15 +1,16 @@
-import Pricing from '@/components/sections/Pricing';
+import PricingCalculator from '@/components/sections/PricingCalculator';
 import CTABand from '@/components/sections/CTABand';
 
 export const metadata = {
-  title: 'Nos tarifs | Cabinet WebSense',
-  description: 'Formules transparentes pour votre projet web : Essentiel, Croissance, Sur Mesure. Devis personnalisé après cadrage gratuit.',
+  title: 'Tarifs & Estimateur de projet | Cabinet WebSense · Djibouti',
+  description:
+    'Calculez une estimation tarifaire en quelques clics. Sélectionnez vos services : développement web, UX design, conseil, formation, marketing, maintenance.',
 };
 
 export default function TarifsPage() {
   return (
     <>
-      <Pricing />
+      <PricingCalculator />
       <CTABand />
     </>
   );

@@ -313,7 +313,60 @@ function DropItem({ item }: { item: SubItem }) {
   );
 }
 
-/* ─── Navbar principale avec switch thème ─── */
+/* ─── Toggle thème ─── */
+function ThemeSwitch({ theme, onToggle }: { theme: 'light' | 'dark'; onToggle: () => void }) {
+  const isDark = theme === 'dark';
+  return (
+    <button
+      onClick={onToggle}
+      aria-label={isDark ? 'Passer en mode clair' : 'Passer en mode sombre'}
+      style={{
+        position: 'relative',
+        width: '52px', height: '28px',
+        borderRadius: '100px',
+        background: isDark ? 'rgba(79,212,165,0.18)' : 'rgba(29,158,117,0.12)',
+        border: `1.5px solid ${isDark ? 'rgba(79,212,165,0.35)' : 'rgba(29,158,117,0.28)'}`,
+        cursor: 'pointer',
+        padding: 0,
+        flexShrink: 0,
+        transition: 'background 0.25s, border-color 0.25s',
+      }}
+    >
+      {/* Thumb */}
+      <span style={{
+        position: 'absolute',
+        top: '3px',
+        left: isDark ? 'calc(100% - 23px)' : '3px',
+        width: '20px', height: '20px',
+        borderRadius: '50%',
+        background: 'var(--green)',
+        transition: 'left 0.28s cubic-bezier(0.16,1,0.3,1)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        boxShadow: '0 1px 4px rgba(0,0,0,0.18)',
+      }}>
+        {isDark ? (
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        ) : (
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        )}
+      </span>
+    </button>
+  );
+}
+
+/* ─── Navbar principale ─── */
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -410,77 +463,14 @@ export default function Navbar() {
           </div>
 
           {/* Droite desktop */}
-          <div className="hidden lg:flex" style={{ alignItems: 'center', gap: '8px', marginLeft: 'auto' }}>
-            {/* Switch thème */}
-            <button
-              onClick={toggleTheme}
-              aria-label="Changer de thème"
-              style={{
-                background: 'rgba(29,158,117,0.08)',
-                border: '1px solid rgba(29,158,117,0.2)',
-                borderRadius: '40px',
-                padding: '6px 12px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                fontFamily: 'var(--mono)',
-                fontSize: '12px',
-                fontWeight: 600,
-                color: 'var(--green)',
-                transition: 'all 0.2s',
-              }}
-            >
-              {theme === 'light' ? (
-                <>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="5"/>
-                    <line x1="12" y1="1" x2="12" y2="3"/>
-                    <line x1="12" y1="21" x2="12" y2="23"/>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                    <line x1="1" y1="12" x2="3" y2="12"/>
-                    <line x1="21" y1="12" x2="23" y2="12"/>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                  </svg>
-                  <span>Clair</span>
-                </>
-              ) : (
-                <>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                  </svg>
-                  <span>Sombre</span>
-                </>
-              )}
-            </button>
-
-            {/* Pastille disponible */}
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '7px',
-              padding: '5px 10px', borderRadius: '100px',
-              background: 'rgba(29,158,117,0.08)',
-              border: '1px solid rgba(29,158,117,0.2)',
-              fontFamily: 'var(--mono)', fontSize: '12px', fontWeight: 600,
-              color: 'var(--green)', whiteSpace: 'nowrap',
-            }}>
-              <span style={{
-                width: '6px', height: '6px', borderRadius: '50%',
-                background: 'var(--green-mid)',
-                boxShadow: '0 0 0 2px rgba(29,158,117,0.2)',
-                display: 'inline-block',
-                animation: 'pulse-dot 2s ease-in-out infinite',
-              }} />
-              Disponible
-            </div>
-
+          <div className="hidden lg:flex" style={{ alignItems: 'center', gap: '10px', marginLeft: 'auto' }}>
+            <ThemeSwitch theme={theme} onToggle={toggleTheme} />
             <Link
               href="/contact"
               className="btn-primary"
               style={{ padding: '9px 18px', fontSize: '13.5px' }}
             >
-              <span>Démarrer</span><span>→</span>
+              <span>Contacts</span><span>→</span>
             </Link>
           </div>
 
@@ -616,47 +606,15 @@ export default function Navbar() {
         ))}
 
         {/* Switch thème dans le menu mobile */}
-        <button
-          onClick={toggleTheme}
-          style={{
-            display: 'flex', alignItems: 'center', gap: '12px',
-            background: 'rgba(29,158,117,0.08)',
-            border: '1px solid rgba(29,158,117,0.2)',
-            borderRadius: '40px',
-            padding: '10px 16px',
-            width: '100%', justifyContent: 'center',
-            marginTop: '16px',
-            fontFamily: 'var(--mono)',
-            fontSize: '14px',
-            fontWeight: 600,
-            color: 'var(--green)',
-            cursor: 'pointer',
-          }}
-        >
-          {theme === 'light' ? (
-            <>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="5"/>
-                <line x1="12" y1="1" x2="12" y2="3"/>
-                <line x1="12" y1="21" x2="12" y2="23"/>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                <line x1="1" y1="12" x2="3" y2="12"/>
-                <line x1="21" y1="12" x2="23" y2="12"/>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-              </svg>
-              Thème clair
-            </>
-          ) : (
-            <>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-              </svg>
-              Thème sombre
-            </>
-          )}
-        </button>
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '14px 4px', marginTop: '4px',
+        }}>
+          <span style={{ fontFamily: 'var(--mono)', fontSize: '13px', fontWeight: 600, color: 'var(--ink-2)' }}>
+            {theme === 'dark' ? 'Mode sombre' : 'Mode clair'}
+          </span>
+          <ThemeSwitch theme={theme} onToggle={toggleTheme} />
+        </div>
 
         <Link
           href="/contact"
