@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/demo-amiin/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Amiin — votre secrétaire personnel à Djibouti">
+  <meta name="theme-color" content="#14213D">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amiin">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Amiin</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Pré-loader affiché pendant le téléchargement du moteur Flutter.
+       Retiré automatiquement dès que Flutter dessine sa première frame
+       (Flutter vide le body avant d'attacher sa vue). -->
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #F2EFE9;
+    }
+    @media (prefers-color-scheme: dark) {
+      html, body { background: #14213D; }
+      #amiin-loader { background: #14213D !important; }
+      #amiin-loader .name { color: #F2EFE9 !important; }
+      #amiin-loader .bar { background: rgba(255, 255, 255, 0.10) !important; }
+    }
+    #amiin-loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      background: #F2EFE9;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    #amiin-loader .name {
+      color: #14213D;
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 12px;
+      margin-left: 12px; /* compense le letter-spacing du dernier caractère */
+      animation: amiin-pulse 1.6s ease-in-out infinite;
+    }
+    #amiin-loader .bar {
+      width: 180px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(20, 33, 61, 0.12);
+      overflow: hidden;
+    }
+    #amiin-loader .bar::after {
+      content: "";
+      display: block;
+      width: 40%;
+      height: 100%;
+      border-radius: 2px;
+      background: #1E8A8A;
+      animation: amiin-slide 1.3s ease-in-out infinite;
+    }
+    @keyframes amiin-pulse {
+      0%, 100% { opacity: 0.55; }
+      50%      { opacity: 1; }
+    }
+    @keyframes amiin-slide {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(350%); }
+    }
+  </style>
+</head>
+<body>
+  <div id="amiin-loader">
+    <div class="name">AMIIN</div>
+    <div class="bar"></div>
+  </div>
+  <script>
+    // Sécurité : retire le loader dès la première frame Flutter
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('amiin-loader');
+      if (el) el.remove();
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
