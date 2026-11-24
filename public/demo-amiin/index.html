@@ -93,6 +93,39 @@
       100% { transform: translateX(350%); }
     }
   </style>
+
+  <!-- Flutter n'ajoute pas cette balise quand il dessine dans un conteneur :
+       sans elle, un téléphone afficherait la page en largeur « ordinateur ». -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <!-- Format téléphone : sur grand écran, l'app tient dans un cadre de
+       téléphone centré ; sur mobile, elle occupe tout l'écran. -->
+  <style id="amiin-phone-format">
+    #amiin-phone { position: fixed; inset: 0; }
+    @media (min-width: 600px) and (min-height: 560px) {
+      html, body { background: radial-gradient(circle at 30% 20%, #FFFFFF 0%, #ECE9E2 60%, #E2DED5 100%); }
+      #amiin-phone {
+        inset: auto;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        height: min(844px, calc(100vh - 48px));
+        /* proportions d'un iPhone, mais jamais moins large qu'un petit
+           téléphone (360 px) sur les écrans peu hauts */
+        width: max(360px, calc(min(844px, calc(100vh - 48px)) * 390 / 844));
+        border-radius: 44px;
+        overflow: hidden;
+        background: #F2EFE9;
+        box-shadow:
+          0 0 0 10px #14213D,
+          0 0 0 11px rgba(255, 255, 255, 0.08),
+          0 40px 80px -20px rgba(20, 33, 61, 0.45),
+          0 12px 30px -10px rgba(20, 33, 61, 0.30);
+      }
+    }
+    @media (min-width: 600px) and (min-height: 560px) and (prefers-color-scheme: dark) {
+      html, body { background: radial-gradient(circle at 30% 20%, #22335A 0%, #14213D 60%, #0D1526 100%); }
+      #amiin-phone { box-shadow: 0 0 0 10px #05080F, 0 0 0 11px rgba(255,255,255,0.10), 0 40px 80px -20px rgba(0,0,0,0.6); }
+    }
+  </style>
 </head>
 <body>
   <div id="amiin-loader">
@@ -106,6 +139,7 @@
       if (el) el.remove();
     });
   </script>
+  <div id="amiin-phone"></div>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
